@@ -153,21 +153,24 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "HR": {
             title: "LIFEWOOD WEBSITE(REACT JS)",
-            description: "This Power BI dashboard provides comprehensive People Analytics, offering insights into employee profiles, salary structures, turnover rates, admissions trends, and team demographics to support strategic HR decision-making.",
+            description: "A fully responsive, modern web application re-imagined with React.js, strictly adhering to Lifewood's brand identity. This project showcases component-based architecture, efficient state management, and leverages AI for creative content generation and design exploration, extending beyond a static prototype.",
             details: [
-                { label: "Technologies Used", value: "HTML, CSS, REACT JS" },
+                { label: "Technologies Used", value: "React.js, JavaScript (ES6+), HTML5, CSS3 (modules/styled-components), npm/yarn, Git, AI tools (e.g., for content/design inspiration)" },
                 {
-                    label: "Key Indicators",
+                    label: "Key Features",
                     value: [
-                        "Employee profiles & demographics",
-                        "Salary range analysis",
-                        "Employee turnover and admission trends",
-                        "Team seniority levels by area/age group"
+                        "Component-based UI architecture for scalability and reusability",
+                        "Client-side routing for seamless navigation (e.g., Home, About, Services, Contact)",
+                        "Interactive elements and dynamic content rendering",
+                        "Mobile-first responsive design across all breakpoints",
+                        "Strict adherence to Lifewood branding guidelines (colors, fonts, logo integration)",
+                        "Original, AI-assisted content and design concepts",
+                        "Optimized for performance and user experience"
                     ]
                 }
             ],
-            liveLink: "https://_YOUR_HR_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/HR-Dashboard-Repo" // Placeholder
+            liveLink: "https://raysel-portfolio.vercel.app/", // Placeholder
+            githubLink: "https://github.com/Rays30/lifewood-react-website" // Placeholder
         },
         "Future": {
             title: "More Projects Coming Soon...",
