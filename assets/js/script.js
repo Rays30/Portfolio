@@ -152,10 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
             githubLink: "https://github.com/Rays30/Lifewood-Website-Prototype-/tree/main/Lifewood%20WebsiteFinal"
         },
         "HR": {
-            title: "HR Dashboard",
+            title: "LIFEWOOD WEBSITE(REACT JS)",
             description: "This Power BI dashboard provides comprehensive People Analytics, offering insights into employee profiles, salary structures, turnover rates, admissions trends, and team demographics to support strategic HR decision-making.",
             details: [
-                { label: "Technologies Used", value: "Power BI, Excel" },
+                { label: "Technologies Used", value: "HTML, CSS, REACT JS" },
                 {
                     label: "Key Indicators",
                     value: [
@@ -168,152 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             liveLink: "https://_YOUR_HR_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
             githubLink: "https://github.com/_YOUR_USERNAME_/HR-Dashboard-Repo" // Placeholder
-        },
-        "Logistics": {
-            title: "Logistics Dashboard",
-            description: "An interactive Power BI dashboard designed for robust stock control and logistics performance analysis. It tracks key supply chain metrics to optimize inventory management and reduce costs.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, SQL (simulated data)" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Stockouts & inventory turnover rate",
-                        "Stock value by storage area, supplier, and SKU",
-                        "ABC classification of items",
-                        "Warehouse occupancy dynamics"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_LOGISTICS_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Logistics-Dashboard-Repo" // Placeholder
-        },
-        "Production": {
-            title: "Production Dashboard",
-            description: "A comprehensive production control tower dashboard that provides real-time insights into manufacturing operations, focusing on efficiency, quality, and equipment performance.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Manufacturing Data Source" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Overall Equipment Effectiveness (OEE): Availability, Performance, Quality",
-                        "Ranking of production rejections",
-                        "Analysis of operational occurrences",
-                        "Machine downtime and utilization"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_PRODUCTION_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Production-Dashboard-Repo" // Placeholder
-        },
-        "Customer NPS": {
-            title: "Customer NPS Dashboard",
-            description: "This Power BI dashboard evaluates customer satisfaction and loyalty using Net Promoter Score (NPS) and Customer Satisfaction (CSAT) metrics, breaking down results by various demographics.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Survey Data (e.g., Excel, CSV)" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Net Promoter Score (NPS) calculation",
-                        "Customer Satisfaction (CSAT) score",
-                        "Breakdown of scores by location, manager, and category",
-                        "Trend analysis of customer feedback over time"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_CUSTOMER_NPS_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Customer-NPS-Dashboard-Repo" // Placeholder
-        },
-        "Marketing": {
-            title: "Marketing Dashboard",
-            description: "An analytical dashboard for monitoring paid traffic campaigns and lead conversion funnels, providing a clear overview of marketing investment effectiveness and key performance metrics.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Google Ads Data, Facebook Ads Data" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Paid traffic investment by channel (Google Ads, Facebook Ads)",
-                        "Lead conversion funnel analysis",
-                        "Customer Acquisition Cost (CAC)",
-                        "Return on Ad Spend (ROAS)",
-                        "Cost Per Click (CPC), Impressions, Reach"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_MARKETING_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Marketing-Dashboard-Repo" // Placeholder
-        },
-        "Inventory": {
-            title: "Inventory Dashboard",
-            description: "A dynamic Power BI solution for real-time inventory overview, value tracking, and warehouse optimization. It provides detailed insights into stock movement and classification.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Supply Chain Data" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Stock value by supplier, SKU, and storage area",
-                        "ABC classification of items",
-                        "Dynamic visibility of warehouse occupancy",
-                        "Breakdown by supplier and product categories"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_INVENTORY_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Inventory-Dashboard-Repo" // Placeholder
-        },
-        "Finance": {
-            title: "Finance Dashboard",
-            description: "A comprehensive financial dashboard designed to monitor cash flow, analyze profit margins, and categorize expenses, providing a clear picture of the company's financial health.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Financial Data (e.g., ERP export)" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Cash flow evolution over time",
-                        "Profit margin (%) calculation",
-                        "Expenses categorized by type",
-                        "Representativeness of expenses by sector/department"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_FINANCE_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Finance-Dashboard-Repo" // Placeholder
-        },
-        "Purchasing": {
-            title: "Purchasing Dashboard",
-            description: "This Power BI dashboard offers deep insights into purchasing trends and supplier performance, optimizing procurement processes and ensuring cost-effectiveness.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Purchasing Data" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Evolution of average purchase price over time",
-                        "Analysis of main categories and SKUs",
-                        "Supplier performance (quality and delivery metrics)",
-                        "Supplier ranking and share percentage"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_PURCHASING_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Purchasing-Dashboard-Repo" // Placeholder
-        },
-        "Projects": {
-            title: "Projects Dashboard",
-            description: "A robust project management dashboard for tracking project evolution, managing schedules, monitoring activity statuses, and assessing team workload to ensure successful project delivery.",
-            details: [
-                { label: "Technologies Used", value: "Power BI, Project Management Software Data" },
-                {
-                    label: "Key Indicators",
-                    value: [
-                        "Project evolution tracking (e.g., S-Curve)",
-                        "Schedule adherence and completion status",
-                        "Activity status and progress",
-                        "Team workload distribution",
-                        "Identification of critical activities/paths"
-                    ]
-                }
-            ],
-            liveLink: "https://_YOUR_PROJECTS_DASHBOARD_LIVE_DEMO_URL_", // Placeholder
-            githubLink: "https://github.com/_YOUR_USERNAME_/Projects-Dashboard-Repo" // Placeholder
         },
         "Future": {
             title: "More Projects Coming Soon...",
