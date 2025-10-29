@@ -180,6 +180,27 @@ document.addEventListener('DOMContentLoaded', () => {
             liveLink: "https://raysel-portfolio.vercel.app/", // Placeholder
             githubLink: "https://github.com/Rays30/lifewood-react-website" // Placeholder
         },
+         "Minesweeper": {
+            title: "Minesweeper Game",
+            description: "The Minesweeper React Firebase game is a modern take on the classic puzzle, developed using React for the frontend and Firebase for backend services. It challenges players to uncover all safe tiles while avoiding hidden mines, featuring smooth animations, responsive design, and intuitive controls. The game integrates Firebase for user authentication and real-time score tracking, allowing players to log in and save their progress. Designed with simplicity and engagement in mind, this project demonstrates both technical proficiency in web development and creative enhancement of traditional gameplay.",
+            details: [
+                { label: "Technologies Used", value: "React, Firebase Authentication, Firebase Firestore, Tailwind CSS, JavaScript (ES6+), Git & GitHub, Vercel" },
+                {
+                    label: "Key Features",
+                    value: [
+                        "Classic Minesweeper gameplay with a modern UI",
+                        "Real-time user authentication and score tracking via Firebase",
+                        "Dynamic win/loss detection and restart functionality",
+                        "Responsive layout for desktop and mobile devices",
+                        "Smooth animations and interactive tile effects",
+                        "Simple and intuitive game interface",
+                        "Cloud-hosted deployment using Vercel"
+                    ]
+                }
+            ],
+            liveLink: "https://minesweeper-react-firebase.vercel.app/", // Placeholder
+            githubLink: "https://github.com/Rays30/minesweeper-react-firebase" // Placeholder
+        },
         "Future": {
             title: "More Projects Coming Soon...",
             description: "This slot is reserved for exciting new projects! I'm constantly exploring and building. Check back soon for showcases in areas like [e.g., React development, Python automation, UI/UX design].",
