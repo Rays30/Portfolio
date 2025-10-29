@@ -448,6 +448,97 @@ a:hover {
     transform: none !important; /* No hover effect */
 }
 
+/* --- START: New Certificate Section Styles --- */
+.certificates-section {
+    padding: 80px 0;
+    background-color: var(--bg-primary); 
+}
+
+.certificates-section h2 {
+    color: var(--text-color);
+}
+
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.certificate-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-color); /* Softer shadow */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative; /* For locked card overlay */
+    cursor: pointer; /* Add pointer cursor to indicate it's clickable */
+
+    /* Animation for fade-in */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+}
+
+.certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.certificate-card.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.certificate-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.certificate-card h3 {
+    color: var(--text-color);
+    padding: 15px 20px 0;
+    margin-bottom: 5px;
+    font-size: 1.15rem;
+    flex-grow: 1; /* Helps align content in cards of varying text length */
+}
+
+.certificate-card p {
+    font-size: 0.9rem;
+    padding: 0 20px 15px;
+    color: #a0a0a0; /* Slightly dimmer text for description */
+}
+
+.locked-card {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: not-allowed; /* Disable cursor for locked card */
+}
+
+.locked-card:hover {
+    transform: none; /* Disable hover effect */
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.locked-content {
+    opacity: 0.7;
+    filter: blur(1px);
+}
+
+.locked-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+/* --- END: New Certificate Section Styles --- */
+
+
 /* --- Project Modal Styles --- */
 .modal-overlay {
     position: fixed;
@@ -506,6 +597,7 @@ a:hover {
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.2s ease;
+    z-index: 10; /* Ensure it's above carousel content */
 }
 
 .modal-close:hover {
@@ -600,6 +692,65 @@ a:hover {
     color: var(--bg-primary); /* Keep color as dark on hover */
 }
 
+/* START: NEW MODAL CAROUSEL STYLES */
+.modal-carousel {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-images img {
+    width: 100%;
+    flex-shrink: 0; /* Prevent images from shrinking */
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease;
+    z-index: 5;
+}
+
+.carousel-nav:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-nav.prev {
+    left: 10px;
+}
+
+.carousel-nav.next {
+    right: 10px;
+}
+
+.carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+/* END: NEW MODAL CAROUSEL STYLES */
+
 
 /* Media Queries for Responsiveness */
 
@@ -627,7 +778,7 @@ a:hover {
         font-size: 2.2rem;
     }
 
-    .skills-grid, .projects-grid, .help-grid, .contact-info-grid {
+    .skills-grid, .projects-grid, .help-grid, .contact-info-grid, .certificates-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
@@ -739,23 +890,23 @@ a:hover {
         font-size: 4rem;
     }
 
-    .skills-grid, .projects-grid, .help-grid, .contact-info-grid {
+    .skills-grid, .projects-grid, .help-grid, .contact-info-grid, .certificates-grid {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 
-    .skill-card, .project-card, .help-card {
+    .skill-card, .project-card, .help-card, .certificate-card {
         padding: 20px;
     }
 
-    .project-card img {
+    .project-card img, .certificate-card img {
         height: 180px;
     }
 
-    .project-card h3 {
+    .project-card h3, .certificate-card h3 {
         font-size: 1.1rem;
     }
 
-    .project-card p {
+    .project-card p, .certificate-card p {
         font-size: 0.85rem;
     }
 

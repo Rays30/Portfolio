@@ -118,6 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
         projectObserver.observe(card);
     });
 
+    // START: Add observer for new certificate cards
+    const certificateCards = document.querySelectorAll('.certificate-card');
+    certificateCards.forEach(card => {
+        projectObserver.observe(card);
+    });
+    // END: Add observer for new certificate cards
+
+
     // --- Project Details Modal ---
     const projectModal = document.getElementById('project-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -192,15 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTitle.textContent = projectData.title;
         modalDescription.textContent = projectData.description;
         modalDetails.innerHTML = ''; // Clear previous details
+        modalLinks.innerHTML = ''; // Clear previous links
 
         if (projectData.details && projectData.details.length > 0) {
             const ul = document.createElement('ul');
             projectData.details.forEach(detail => {
                 const li = document.createElement('li');
                 if (Array.isArray(detail.value)) {
-                    // For Key Features, create sub-list or multiple lines
-                    // Ensure the strong tag is within the <li> and bolding the label
-                    li.innerHTML = `<strong>${detail.label}:</strong><br>` + detail.value.map(item => `    • ${item}`).join('<br>');
+                    li.innerHTML = `<strong>${detail.label}:</strong><br>` + detail.value.map(item => `&nbsp;&nbsp;&nbsp;&nbsp;• ${item}`).join('<br>');
                 } else {
                     li.innerHTML = `<strong>${detail.label}:</strong> ${detail.value}`;
                 }
@@ -209,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalDetails.appendChild(ul);
         }
 
-        modalLinks.innerHTML = ''; // Clear previous links
         // Dynamically add Live Link if available
         if (projectData.liveLink && projectData.liveLink !== "#") {
             const liveLink = document.createElement('a');
@@ -246,6 +252,104 @@ document.addEventListener('DOMContentLoaded', () => {
             openModal(projectKey);
         });
     });
+
+    // --- START: NEW CERTIFICATE MODAL LOGIC ---
+    const certificateModalTriggers = document.querySelectorAll('.certificate-card:not(.locked-card)');
+
+    const certificateDetails = {
+        "proweaver": {
+            title: "ProWeaver, Inc - PromptQuest",
+            description: "Participated in PromptQuest, a timed innovation challenge designed to merge creativity and technology through AI-driven ideas. The task involved brainstorming, designing, and building an original AI-related project prototype within 4 hours, followed by documentation and presentation. Participants were grouped into themed categories such as Galactic Pulse and Fireboy & Watergirl, focusing on collaboration, creativity, and functionality. Projects were judged based on originality, gameplay design, clarity of concept, and presentation quality.",
+            images: [
+                "assets/images/certificate1.jpeg", // The main certificate image
+                "assets/images/certificate1_detail1.jpg", // A placeholder for a related project screenshot
+                "assets/images/certificate1_detail2.jpg"  // Another placeholder
+            ]
+        },
+    };
+
+    function openCertificateModal(certKey) {
+        const certData = certificateDetails[certKey];
+        if (!certData) {
+            console.error(`No data found for certificate: ${certKey}`);
+            return;
+        }
+
+        modalTitle.textContent = certData.title;
+        modalDescription.textContent = certData.description;
+        modalDetails.innerHTML = ''; // Clear previous details
+        modalLinks.innerHTML = ''; // Clear project links
+
+        // Create carousel structure
+        let currentIndex = 0;
+        const totalImages = certData.images.length;
+        
+        const carousel = document.createElement('div');
+        carousel.className = 'modal-carousel';
+        
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'carousel-images';
+        certData.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = certData.title;
+            // Handle image loading errors gracefully
+            img.onerror = () => { img.src = 'assets/images/coming-soon.png.png'; }; 
+            imageContainer.appendChild(img);
+        });
+        
+        carousel.appendChild(imageContainer);
+
+        // Add navigation buttons if more than one image
+        if (totalImages > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.className = 'carousel-nav prev';
+            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevButton.disabled = true; // Start at the beginning
+
+            const nextButton = document.createElement('button');
+            nextButton.className = 'carousel-nav next';
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            
+            carousel.appendChild(prevButton);
+            carousel.appendChild(nextButton);
+
+            function updateCarousel() {
+                imageContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex === totalImages - 1;
+            }
+
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < totalImages - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+        }
+        
+        modalDetails.appendChild(carousel);
+
+        // Show the modal
+        projectModal.classList.add('active');
+        body.classList.add('modal-open');
+    }
+
+    certificateModalTriggers.forEach(card => {
+        card.addEventListener('click', () => {
+            const certKey = card.dataset.certificate;
+            openCertificateModal(certKey);
+        });
+    });
+    // --- END: NEW CERTIFICATE MODAL LOGIC ---
+
 
     // Add event listener to modal close button
     modalCloseButton.addEventListener('click', closeModal);
