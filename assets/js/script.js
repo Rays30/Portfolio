@@ -96,34 +96,37 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightNavLink(); // Call on load to set initial active link
 
 
-    // --- Intersection Observer for Project Card Fade-in Animation ---
-    const projectCards = document.querySelectorAll('.project-card');
+    // --- Unified Intersection Observer for Scroll Animations ---
+    const animatedElements = document.querySelectorAll('[data-animation]');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const projectObserver = new IntersectionObserver((entries, observer) => {
+    const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
+                const element = entry.target;
+                const delay = parseInt(element.dataset.delay) || 0;
+
+                setTimeout(() => {
+                    element.classList.add('is-visible');
+                }, delay);
+                
+                observer.unobserve(element);
             }
         });
-    }, observerOptions);
-
-    projectCards.forEach(card => {
-        projectObserver.observe(card);
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px' // Trigger animation slightly before it's fully in view
     });
 
-    // START: Add observer for new certificate cards
-    const certificateCards = document.querySelectorAll('.certificate-card');
-    certificateCards.forEach(card => {
-        projectObserver.observe(card);
+    animatedElements.forEach((element, index) => {
+        // Apply staggered delay for grid items if no specific delay is set
+        const parent = element.parentElement;
+        if ((parent.classList.contains('skills-grid') || parent.classList.contains('projects-grid') || parent.classList.contains('certificates-grid')) && !element.dataset.delay) {
+            const gridItems = Array.from(parent.children).filter(child => child.hasAttribute('data-animation'));
+            const itemIndex = gridItems.indexOf(element);
+            element.style.transitionDelay = `${itemIndex * 100}ms`;
+        }
+        animationObserver.observe(element);
     });
-    // END: Add observer for new certificate cards
 
 
     // --- Project Details Modal ---
