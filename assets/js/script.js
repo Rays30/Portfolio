@@ -217,4 +217,54 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('userHasLiked', hasLiked);
     });
 
+    // --- Video Demo Modal Logic ---
+    const videoModal = document.getElementById('video-modal');
+    const videoPlayer = document.getElementById('modal-video-player');
+    const videoModalClose = document.getElementById('video-modal-close');
+    const viewDemoButtons = document.querySelectorAll('.view-demo-btn');
+
+    function openVideoModal(videoSrc) {
+        // Set the source of the video player
+        videoPlayer.src = videoSrc;
+        videoModal.classList.add('active');
+        body.classList.add('modal-open');
+        
+        // Auto-play the video when opened
+        videoPlayer.play(); 
+    }
+
+    function closeVideoModal() {
+        videoModal.classList.remove('active');
+        body.classList.remove('modal-open');
+        
+        // Pause the video and clear the source when closing so it doesn't keep playing in the background
+        videoPlayer.pause();
+        setTimeout(() => {
+            videoPlayer.src = "";
+        }, 300);
+    }
+
+    viewDemoButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Grab the video path from the data-video attribute in the HTML
+            const videoSrc = button.getAttribute('data-video');
+            openVideoModal(videoSrc);
+        });
+    });
+
+    videoModalClose.addEventListener('click', closeVideoModal);
+    videoModal.addEventListener('click', (e) => { 
+        if (e.target === videoModal) closeVideoModal(); 
+    });
+
+    // --- Global Escape Key Listener ---
+    document.addEventListener('keydown', (e) => { 
+        if (e.key === 'Escape') {
+            closeModal(); 
+            closeImageModal(); 
+            if(typeof closeVideoModal === 'function') closeVideoModal(); // Added this line
+        }
+    });
+
 });
