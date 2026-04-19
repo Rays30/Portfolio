@@ -5,315 +5,343 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raysel Sabellano - Portfolio</title>
     <meta name="description" content="Raysel Sabellano portfolio - Software Developer specializing in AI-powered applications, system development, and modern web technologies.">
-    <meta name="keywords" content="Power BI, Data Analyst, Business Intelligence, Supply Chain, Dashboards, Portfolio, Letícia Smirelli, Microsoft Certified, MVP">
-
-    <!-- Developer Note: Favicons (Website Icons) -->
-    <!-- After generating your favicons, place them in the 'assets/icons/' folder. -->
-    <!-- For best compatibility, generate multiple sizes and formats. -->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- Optional: If you generate a web app manifest for progressive web app features -->
-    <!-- <link rel="manifest" href="assets/icons/site.webmanifest"> -->
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poetsen+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="light-mode">
     <!-- Fixed Navigation Bar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="#home" class="nav-brand">Raysel Sabellano</a>
+        <div class="container nav-container">
+            <a href="#home" class="nav-brand">RAYSEL SABELLANO</a>
             <button class="menu-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About me</a></li>
-                <li><a href="#projects">Portfolio</a></li>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#tech-stack">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#certificates">Certificates</a></li>
-                <li><a href="#how-can-help">How I can help</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>
-                    <!-- Light/Dark Mode Toggle (integrated into nav for better placement) -->
-                    <button id="theme-toggle" class="nav-theme-toggle" aria-label="Toggle light/dark mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
             </ul>
+            
+            <!-- Theme Toggle Switch -->
+            <div class="theme-switch" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <div class="switch-ball"></div>
+                <i class="fas fa-sun"></i>
+            </div>
         </div>
     </nav>
 
-    <header id="home" class="hero-section">
-        <div class="container">
-            <div class="hero-content">
-                <p class="greeting" data-animation="fade-up">Hello! My name is</p>
-                <h1 data-animation="fade-up" data-delay="100">Raysel Sabellano</h1>
-                <p class="profession">
-Software Developer specializing in AI-powered applications and system automation.<br>
-I build real-world systems including chatbots, management platforms, and rapid prototypes using modern tools.
-</p>
-            </div>
-            <div class="hero-image" data-animation="scale-in" data-delay="300">
-                <img src="assets/images/profilepic.312Z.png" alt="Raysel Sabellano profile picture">
-            </div>
-        </div>
-    </header>
-
     <main>
-        <section id="about" class="about-section">
-            <div class="container">
-                <h2 data-animation="slide-in-left">About me:</h2>
-                <p class="intro-text" data-animation="slide-in-left" data-delay="100">
-                    Welcome to my portfolio. Learn about my journey:
-                </p>
-                <div class="experience-block" data-animation="fade-up">
-                    <span class="experience-years">1+</span>
-                    <p class="experience-description">
-Software Developer and IT graduate with experience in building full-stack applications and integrating AI into real-world systems.
-Developed projects including a Laundry Management System (Capstone), AI chatbot, POS system, and multiple web and game applications. Experienced in using HTML, CSS, JavaScript, Python, and Java, along with Firebase for backend development.
-Completed internship training in an AI-focused company, gaining hands-on experience in chatbot development, system prototyping, and modern development workflows.
-Focused on building efficient, user-friendly systems and continuously improving technical skills.
-</p>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero-section">
+            <div class="container hero-grid">
+                
+                <!-- Left: Profile Image -->
+                <div class="hero-profile" data-animation="scale-in">
+                    <div class="profile-img-wrapper">
+                        <img src="assets/images/profilepic.jpg" alt="Raysel Sabellano">
+                    </div>
+                </div>
+
+                <!-- Center: Main Info -->
+                <div class="hero-info" data-animation="fade-up" data-delay="100">
+                    <div class="name-row">
+                        <h1>Raysel Sabellano</h1>
+                        <span class="likes" id="like-button" title="Like my portfolio!">
+                            <i class="far fa-heart" id="heart-icon"></i> <span id="like-count">0</span>
+                        </span>
+                    </div>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Cebu City, Philippines</p>
+                    <h2>Software Developer<br>AI & Web Enthusiast</h2>
+                    
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-dark"><i class="fas fa-file-alt"></i> View Resume</a>
+                        <a href="https://github.com/Rays30" target="_blank" class="btn btn-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" class="btn btn-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <p class="bio">
+                        IT graduate with experience in building full-stack applications and integrating AI into real-world systems. Passionate about creating efficient, user-friendly solutions and continuously learning new technologies.
+                    </p>
+                </div>
+
+                <!-- Right: Timeline & Contacts -->
+                <div class="hero-sidebar" data-animation="slide-in-right" data-delay="200">
+                    <div class="sidebar-block">
+                        <h3><i class="fas fa-graduation-cap"></i> EDUCATION</h3>
+                        <div class="timeline-item">
+                            <h4>Bachelor of Science in Information Technology</h4>
+                            <span class="date">2021 - 2025</span>
+                            <p>Cebu Eastern College Inc.</p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3><i class="fas fa-briefcase"></i> EXPERIENCE</h3>
+                        <div class="timeline-item">
+                            <h4>Software Developer Intern</h4>
+                            <span class="date">June 2025 - December 2025</span>
+                            <p>Intelegencia AI Technology Solutions</p>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3><i class="fas fa-phone flip-horizontal"></i> CONTACTS</h3>
+                        <div class="contact-icons">
+                            <a href="tel:+639053446245" title="+63 905 344 6245">
+                                <i class="fas fa-phone flip-horizontal"></i>
+                            </a>
+                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank" rel="noopener noreferrer" title="sabellanoraysel16@gmail.com">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://wa.me/639053446245" target="_blank" rel="noopener noreferrer" title="WhatsApp (+63 905 344 6245)">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.facebook.com/raysel.sabellano" target="_blank" rel="noopener noreferrer" title="Raysel Sabellano">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="https://www.instagram.com/sel_sabellano/" target="_blank" rel="noopener noreferrer" title="@sel_sabellano">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://x.com/sel_sabellano" target="_blank" rel="noopener noreferrer" title="@sel_sabellano">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                            <a href="https://www.microsoft.com/en-us/microsoft-learn/profile/your-profile-id" target="_blank" rel="noopener noreferrer" title="Microsoft Account">
+                                <i class="fab fa-windows"></i>
+                            </a>
+                            <a href="https://discord.com/channels/1387804418266759383/1387805706090188902" target="_blank" rel="noopener noreferrer" title="Raysel Sabellano on Discord">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="skills-section">
+        <!-- TECH STACK SECTION -->
+        <section id="tech-stack" class="tech-stack-section">
             <div class="container">
-                <h2 data-animation="slide-in-right">Key Skills:</h2>
-                <div class="skills-grid">
-                    <div class="skill-card" data-animation="scale-in">
-                        <i class="fas fa-laptop-code skill-icon"></i>
-                        <h3>WEB DEVELOPMENT</h3>
-                        <p>Built responsive web applications using HTML, CSS, and JavaScript with focus on clean UI and user experience.</p>
+                <div class="section-header" data-animation="fade-up">
+                    <h2>TECH STACK</h2>
+                    <p>Technologies I work with</p>
+                </div>
+                
+                <div class="tech-grid">
+                    <!-- Front End -->
+                    <div class="tech-column" data-animation="fade-up" data-delay="100">
+                        <h3><i class="fas fa-desktop"></i> FRONT END</h3>
+                        <div class="pill-container">
+                            <span class="tech-pill"><i class="fab fa-html5" style="color: #E34F26;"></i> HTML</span>
+                            <span class="tech-pill"><i class="fab fa-css3-alt" style="color: #1572B6;"></i> CSS</span>
+                            <span class="tech-pill"><i class="fab fa-js" style="color: #F7DF1E;"></i> JavaScript</span>
+                            <span class="tech-pill"><i class="fas fa-mobile-alt" style="color: #54C5F8;"></i> Flutter</span>
+                        </div>
                     </div>
-                    <div class="skill-card" data-animation="scale-in">
-                        <i class="fas fa-brain skill-icon"></i>
-                        <h3>PROGRAMMING LANGUAGES</h3>
-                        <p>Proficient in Python, Java, and C# with strong foundation in object-oriented programming and problem solving.</p>
+
+                    <!-- Back End -->
+                    <div class="tech-column border-sides" data-animation="fade-up" data-delay="200">
+                        <h3><i class="fas fa-server"></i> BACK END</h3>
+                        <div class="pill-container">
+                            <span class="tech-pill"><i class="fas fa-fire" style="color: #FFCA28;"></i> Firebase</span>
+                            <span class="tech-pill"><i class="fas fa-network-wired" style="color: #4B5563;"></i> REST API</span>
+                            <span class="tech-pill"><i class="fab fa-python" style="color: #3776AB;"></i> Python</span>
+                            <span class="tech-pill"><i class="fab fa-java" style="color: #007396;"></i> Java</span>
+                        </div>
                     </div>
-                    <div class="skill-card" data-animation="scale-in">
-                        <i class="fas fa-tools skill-icon"></i>
-                        <h3>SOFTWARE & TOOLS</h3>
-                       <p>Experience with Git, GitHub, Firebase, VS Code, and Figma for development, collaboration, and deployment.</p>
-                    </div>
-                    <div class="skill-card" data-animation="scale-in">
-                        <i class="fas fa-book skill-icon"></i>
-                        <h3>ACADEMIC PROJECTS</h3>
-                        <p>Developed systems including a Laundry Management System (Capstone), POS system, and multiple application prototypes.</p>
-                    </div>
-                    <div class="skill-card" data-animation="scale-in">
-                        <i class="fas fa-robot skill-icon"></i>
-                        <h3>AI INTERNSHIP EXPOSURE</h3>
-                        <p>Hands-on experience in AI integration, chatbot development, and rapid prototyping using modern AI tools.</p>
+
+                    <!-- Tools -->
+                    <div class="tech-column" data-animation="fade-up" data-delay="300">
+                        <h3><i class="fas fa-tools"></i> TOOLS</h3>
+                        <div class="pill-container">
+                            <span class="tech-pill"><i class="fab fa-git-alt" style="color: #F05032;"></i> Git</span>
+                            <span class="tech-pill"><i class="fab fa-github" style="color: var(--text-primary);"></i> GitHub</span>
+                            <span class="tech-pill"><i class="fas fa-code" style="color: #007ACC;"></i> VS Code</span>
+                            <span class="tech-pill"><i class="fab fa-figma" style="color: #F24E1E;"></i> Figma</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- FEATURED PROJECTS SECTION -->
         <section id="projects" class="projects-section">
             <div class="container">
-                <h2 data-animation="slide-in-left">Explore some projects I've developed:</h2>
+                <div class="section-header flex-between" data-animation="fade-up">
+                    <div>
+                        <h2>FEATURED PROJECTS</h2>
+                        <p>A glimpse of my work</p>
+                    </div>
+                    <a href="#" class="btn btn-dark">View All Projects <i class="fas fa-arrow-right"></i></a>
+                </div>
+
                 <div class="projects-grid">
-                    <!-- Project Card: Lifewood Website -->
-                    <div class="project-card" data-animation="fade-up">
-                        <img src="assets/images/lifewood_logo.png" data-dark-src="assets/images/lifewood_logo.png" alt="Lifewood Website Prototype Preview">
-                        <h3>LIFEWOOD WEBSITE</h3>
-                        <p>Responsive website prototype built based on company branding. Focused on UI design, content structure, and efficient development using modern tools.</p>
-                        <div class="project-action-buttons">
-                            <a href="https://lifewood-website.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Rays30/Lifewood-Website-Prototype-" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fab fa-github"></i> GitHub Repo
-                            </a>
-                            <button class="btn secondary-btn view-details-btn" data-project="Lifewood Website">
-                                <i class="fas fa-search"></i> View details
-                            </button>
+                    <!-- Project 1 -->
+                    <div class="project-card" data-animation="fade-up" data-delay="100">
+                        <div class="project-img">
+                            <img src="assets/images/lifewood_logo.png" alt="Laundry Management System">
                         </div>
-                    </div>      
-                    
-                    <!-- Project Card 1: HR -->
-                    <div class="project-card" data-animation="fade-up">
-                        <img src="assets/images/lifewood_logo.png" alt="Lifewood Website(React JS) preview">
-                        <h3>LIFEWOOD WEBSITE(REACT JS)</h3>
-                        <p>A responsive website prototype for Lifewood built with React JS, featuring original content and branding-inspired design. The project showcases clean UI, reusable components, and is fully deployed on Vercel with source code on GitHub.</p>
-                        <div class="project-action-buttons">
-                            <a href="https://lifewood-react-website.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Rays30/lifewood-react-website" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fab fa-github"></i> GitHub Repo
-                            </a>
-                            <button class="btn secondary-btn view-details-btn" data-project="HR">
-                                <i class="fas fa-search"></i> View details
-                            </button>
+                        <div class="project-content">
+                            <h3>Laundry Management System</h3>
+                            <p>Full-stack system for managing laundry pickup, delivery, and order tracking.</p>
+                            <div class="project-tags">
+                                <span>Flutter</span>
+                                <span>Firebase</span>
+                                <span>Dart</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-dark btn-sm"><i class="fas fa-external-link-alt"></i> Live View</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> GitHub</a>
+                                <button class="btn btn-outline btn-sm view-details-btn" data-project="Lifewood Website">Full Details</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-animation="fade-up">
-                        <img src="assets/images/minesweeper.png" alt="Lifewood Website(React JS) preview">
-                        <h3>MINESWEEPER GAME</h3>
-                        <p>Interactive Minesweeper game built with React and Firebase featuring real-time gameplay and smooth user experience.</p>
-                        <div class="project-action-buttons">
-                            <a href="https://minesweeper-react-firebase.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Rays30/minesweeper-react-firebase" target="_blank" rel="noopener noreferrer" class="btn secondary-btn project-link">
-                                <i class="fab fa-github"></i> GitHub Repo
-                            </a>
-                            <button class="btn secondary-btn view-details-btn" data-project="Minesweeper">
-                                <i class="fas fa-search"></i> View details
-                            </button>
+                    <!-- Project 2 -->
+                    <div class="project-card" data-animation="fade-up" data-delay="200">
+                        <div class="project-img">
+                            <img src="assets/images/lifewood_logo.png" alt="AI Chatbot">
+                        </div>
+                        <div class="project-content">
+                            <h3>AI Chatbot Application</h3>
+                            <p>Chatbot built using AI API integration with real-time interaction.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                                <span>Gemini API</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-dark btn-sm"><i class="fas fa-external-link-alt"></i> Live View</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> GitHub</a>
+                                <button class="btn btn-outline btn-sm view-details-btn" data-project="HR">Full Details</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- More Projects Coming... Card -->
-                    <div class="project-card" data-animation="fade-up">
-                        <img src="assets/images/coming-soon.png.png" alt="Placeholder for future project">
-                        <h3>MORE PROJECTS COMING...</h3>
-                        <p>
-                            Stay tuned! I'm constantly learning and building. New projects showcasing my skills in web development, system design, and more will be added here soon.
-                        </p>
-                        <div class="project-action-buttons">
-                            <a href="#projects" class="btn secondary-btn project-link disabled-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#projects" class="btn secondary-btn project-link disabled-link">
-                                <i class="fab fa-github"></i> GitHub Repo
-                            </a>
-                            <button class="btn secondary-btn view-details-btn disabled-link" data-project="Future">
-                                <i class="fas fa-hammer"></i> Building...
-                            </button>
+                    <!-- Project 3 -->
+                    <div class="project-card" data-animation="fade-up" data-delay="300">
+                        <div class="project-img">
+                            <img src="assets/images/minesweeper.png" alt="Fireboy & Watergirl">
+                        </div>
+                        <div class="project-content">
+                            <h3>Fireboy & Watergirl Prototype</h3>
+                            <p>4-hour game prototype developed in a hackathon.</p>
+                            <div class="project-tags">
+                                <span>JavaScript</span>
+                                <span>HTML</span>
+                                <span>CSS</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-dark btn-sm"><i class="fas fa-external-link-alt"></i> Live View</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> GitHub</a>
+                                <button class="btn btn-outline btn-sm view-details-btn" data-project="Minesweeper">Full Details</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- START: New Certificates Section -->
+        <!-- CERTIFICATES SECTION -->
         <section id="certificates" class="certificates-section">
             <div class="container">
-                <h2 data-animation="slide-in-right">Certificates</h2>
+                <div class="section-header" data-animation="fade-up">
+                    <h2>CERTIFICATES</h2>
+                    <p>Achievements and trainings</p>
+                </div>
+
                 <div class="certificates-grid">
-                    <!-- Certificate Card 1 -->
-                    <div class="certificate-card" data-certificate="proweaver" data-animation="fade-up">
-                        <img src="assets/images/certificate1.jpeg" alt="Frontend Development Certificate">
-                        <h3>ProWeaver, Inc - PromptQuest</h3>
-                        <p>Issued by ProWeaver PH</p>
-                    </div>
-                    <!-- Locked Certificate Card -->
-                    <div class="certificate-card locked-card" data-animation="fade-up">
-                        <div class="locked-content">
-                            <i class="fas fa-lock locked-icon"></i>
-                            <h3>More Skills Coming Soon</h3>
-                            <p>This user is currently acquiring more skills to be unlocked! 🎮</p>
+                    <!-- Certificate 1 -->
+                    <div class="cert-card-horizontal" data-animation="fade-up" data-delay="100">
+                        <img src="assets/images/certificate1.jpeg" alt="PromptQuest Certificate">
+                        <div class="cert-info">
+                            <h3>ProWeaver, Inc<br>PromptQuest</h3>
+                            <p>Hackathon participation focused on AI prompt engineering and problem-solving.</p>
+                            <button class="btn btn-outline certificate-trigger">View Certificate</button>
                         </div>
                     </div>
-                    <!-- Locked Certificate Card -->
-                    <div class="certificate-card locked-card" data-animation="fade-up">
-                        <div class="locked-content">
-                            <i class="fas fa-lock locked-icon"></i>
-                            <h3>More Skills Coming Soon</h3>
-                            <p>This user is currently acquiring more skills to be unlocked! 🎮</p>
+
+                    <!-- Certificate 2 -->
+                    <div class="cert-card-horizontal" data-animation="fade-up" data-delay="200">
+                        <img src="assets/images/certificate2.jpg" alt="AI Integration Training Certificate">
+                        <div class="cert-info">
+                            <h3>Software Developer Intern<br>AI Integration Training</h3>
+                            <p>Hands-on training in chatbot development, system prototyping, and modern development tools.</p>
+                            <button class="btn btn-outline certificate-trigger">View Certificate</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- END: New Certificates Section -->
-
-        <section id="how-can-help" class="help-section">
-            <div class="container">
-                <h2>How I can help:</h2>
-                <div class="help-grid">
-                    <div class="help-card">
-                        <i class="fas fa-laptop-code help-icon"></i>
-                        <h3>WEBSITE DEVELOPMENT</h3>
-                        <p>I can build simple, responsive websites using HTML, CSS, and JavaScript, perfect for personal portfolios, small business pages, and project showcases.</p>
-                    </div>
-                    <div class="help-card">
-                        <i class="fas fa-puzzle-piece help-icon"></i>
-                        <h3>SYSTEM PROTOTYPING</h3>
-                        <p>I can help design and prototype academic or simple business systems using Java, Python, or C#, based on real-world needs (e.g., laundry management, book systems, or OOP-based tools).</p>
-                    </div>
-                    <div class="help-card">
-                        <i class="fas fa-handshake help-icon"></i>
-                        <h3>PROJECT COLLABORATION / INTERN SUPPORT</h3>
-                        <p>Open to collaborating on IT projects or supporting dev teams as a junior developer or intern, especially in frontend development or logic-based programming.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-         <section id="contact" class="contact-section">
-            <div class="container">
-                <h2 data-animation="fade-up">Get in touch with me:</h2>
-                <div class="contact-info-grid" data-animation="scale-in">
-                    <a href="https://raysel-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fas fa-globe"></i>
-                        <span>www.rayselsabellano.com</span>
-                    </a>
-                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>sabellanoraysel16@gmail.com</span>
-                    </a>
-                    <a href="tel:+639123456789" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+63 905 344 6245</span>
-                    </a>
-                    <a href="https://wa.me/639053446245" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>WhatsApp (+63 905 344 6245)</span>
-                    </a>
-                    <a href="https://www.microsoft.com/en-us/microsoft-learn/profile/your-profile-id" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-microsoft"></i>
-                        <span>Microsoft Account</span>
-                    </a>
-                    <a href="https://x.com/sel_sabellano" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-x-twitter"></i>
-                        <span>@sel_sabellano</span>
-                    </a>
-                    <a href="https://www.facebook.com/raysel.sabellano" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Raysel Sabellano</span>
-                    </a>
-                    <a href="https://discord.com/channels/1387804418266759383/1387805706090188902" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-discord"></i>
-                        <span>Raysel Sabellano</span>
-                    </a>
-                    <a href="https://www.instagram.com/sel_sabellano/" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-instagram"></i>
-                        <span>@sel_sabellano</span>
-                    </a>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h2>Raysel Sabellano</h2>
+                <p><i>"Code. Learn. Build. Repeat."</i></p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>QUICK LINKS</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tech-stack">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h3>MESSAGE ME</h3>
+                <form class="contact-form">
+                    <div class="form-row">
+                        <input type="text" placeholder="Name" required>
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <textarea placeholder="Message" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-light">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Raysel Sabellano. All rights reserved.</p>
+        </div>
+    </footer>
+
     <!-- Project Details Modal Structure -->
     <div id="project-modal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close" aria-label="Close modal">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
             <h3 id="modal-title"></h3>
             <p id="modal-description"></p>
-            <div id="modal-details">
-                <!-- Details like Role, Technologies, Key Features will be dynamically inserted here -->
-            </div>
+            <div id="modal-details"></div>
             <p id="modal-links"></p>
         </div>
     </div>
+
+    <!-- Image Modal (Lightbox for Certificates) -->
+    <div id="image-modal" class="modal-overlay">
+        <div class="image-modal-content">
+            <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+            <img id="modal-image-view" src="" alt="Certificate Full View">
+        </div>
+    </div>
+
+    <!-- Floating Chat Button (Fixed to screen) -->
+    <button class="floating-chat" aria-label="Open Chat">
+        <i class="fas fa-comment-dots"></i>
+    </button>
 
     <script src="assets/js/script.js"></script>
 </body>
