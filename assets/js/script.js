@@ -1,49 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Mobile Navigation Toggle ---
+    // --- 1. Mobile Navigation Toggle ---
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
-    });
 
-    // --- Light/Dark Mode Toggle ---
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    }
+
+    // --- 2. Light/Dark Mode Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.className = savedTheme; 
-    } else {
-        body.className = 'light-mode'; 
+    if (themeToggle) {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.className = savedTheme; 
+        } else {
+            body.className = 'light-mode'; 
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                body.classList.replace('light-mode', 'dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                body.classList.replace('dark-mode', 'light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+        });
     }
 
-    themeToggle.addEventListener('click', () => {
-        if (body.classList.contains('light-mode')) {
-            body.classList.replace('light-mode', 'dark-mode');
-            localStorage.setItem('theme', 'dark-mode');
-        } else {
-            body.classList.replace('dark-mode', 'light-mode');
-            localStorage.setItem('theme', 'light-mode');
-        }
-    });
-
-// --- Scroll Spy for Active Navigation Links ---
+    // --- 3. Scroll Spy for Active Navigation Links ---
     const sections = document.querySelectorAll('section[id]');
     const navLinksList = document.querySelectorAll('.nav-links a');
 
     function highlightNavLink() {
-        // STOP the script if we are on the new pages (where sections don't exist)
-        if (sections.length === 0) return;
+        if (sections.length === 0) return; // Stops script if not on homepage
 
         let current = '';
         sections.forEach(section => {
@@ -56,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinksList.forEach(link => {
             link.classList.remove('active');
-            // Only add the underline if a section is actually found
             if (current !== '' && link.getAttribute('href').includes(current)) {
                 link.classList.add('active');
             }
@@ -66,309 +68,40 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', highlightNavLink);
     highlightNavLink();
 
-    // --- Unified Intersection Observer for Scroll Animations ---
+    // --- 4. Scroll Animations (Intersection Observer) ---
     const animatedElements = document.querySelectorAll('[data-animation]');
 
-    const animationObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const element = entry.target;
-                const delay = parseInt(element.dataset.delay) || 0;
+    if (animatedElements.length > 0) {
+        const animationObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    const delay = parseInt(element.dataset.delay) || 0;
 
-                setTimeout(() => {
-                    element.classList.add('is-visible');
-                }, delay);
-                
-                observer.unobserve(element);
-            }
+                    setTimeout(() => {
+                        element.classList.add('is-visible');
+                    }, delay);
+                    
+                    observer.unobserve(element);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
 
-    animatedElements.forEach(element => {
-        animationObserver.observe(element);
-    });
-
-    // --- Project Details Modal ---
-    const projectModal = document.getElementById('project-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDescription = document.getElementById('modal-description');
-    const modalDetails = document.getElementById('modal-details');
-    const modalLinks = document.getElementById('modal-links');
-    const modalCloseButton = document.querySelector('.modal-close');
-    const viewDetailsButtons = document.querySelectorAll('.view-details-btn'); 
-
-    const projectDetails = {
-        "Lifewood Website": {
-            title: "Laundry Management System",
-            description: "Full-stack system for managing laundry pickup, delivery, and order tracking.",
-            details: [{ label: "Technologies", value: "Flutter, Firebase, Dart" }]
-        },
-        "HR": {
-            title: "AI Chatbot Application",
-            description: "Chatbot built using AI API integration with real-time interaction.",
-            details: [{ label: "Technologies", value: "HTML, CSS, JavaScript, Gemini API" }]
-        },
-        "Minesweeper": {
-            title: "Fireboy & Watergirl Prototype",
-            description: "4-hour game prototype developed in a hackathon.",
-            details: [{ label: "Technologies", value: "JavaScript, HTML, CSS" }]
-        }
-    };
-
-    function openModal(projectKey) {
-        const projectData = projectDetails[projectKey];
-        if (!projectData) return;
-
-        modalTitle.textContent = projectData.title;
-        modalDescription.textContent = projectData.description;
-        modalDetails.innerHTML = ''; 
-        modalLinks.innerHTML = ''; 
-
-        projectModal.classList.add('active');
-        body.classList.add('modal-open'); 
+        animatedElements.forEach(element => {
+            animationObserver.observe(element);
+        });
     }
 
-    function closeModal() {
-        projectModal.classList.remove('active');
-        body.classList.remove('modal-open'); 
-    }
-
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const projectKey = button.dataset.project; 
-            openModal(projectKey);
-        });
-    });
-
-    modalCloseButton.addEventListener('click', closeModal);
-    projectModal.addEventListener('click', (e) => { if (e.target === projectModal) closeModal(); });
-
-    // --- Image Modal (Lightbox) Logic ---
+    // --- 5. Image Modal (Lightbox) Logic ---
     const imageModal = document.getElementById('image-modal');
     const modalImageView = document.getElementById('modal-image-view');
     const imageModalClose = document.getElementById('image-modal-close');
     const certificateTriggers = document.querySelectorAll('.certificate-trigger');
 
-    function openImageModal(imageSrc) {
-        modalImageView.src = imageSrc;
-        imageModal.classList.add('active');
-        body.classList.add('modal-open');
-    }
-
-    function closeImageModal() {
-        imageModal.classList.remove('active');
-        body.classList.remove('modal-open');
-        setTimeout(() => { modalImageView.src = ''; }, 300); 
-    }
-
-    certificateTriggers.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const card = e.target.closest('.cert-card-horizontal');
-            const imgSrc = card.querySelector('img').src;
-            openImageModal(imgSrc);
-        });
-    });
-
-    imageModalClose.addEventListener('click', closeImageModal);
-    imageModal.addEventListener('click', (e) => { 
-        if (e.target === imageModal) closeImageModal(); 
-    });
-
-    // --- Global Escape Key Listener ---
-    document.addEventListener('keydown', (e) => { 
-        if (e.key === 'Escape') {
-            closeModal(); 
-            closeImageModal(); 
-        }
-    });
-
-    // --- Heart Like/Unlike Functionality ---
-    const likeButton = document.getElementById('like-button');
-    const likeCountDisplay = document.getElementById('like-count');
-    const heartIcon = document.getElementById('heart-icon');
-    
-    let currentLikes = localStorage.getItem('portfolioLikes') ? parseInt(localStorage.getItem('portfolioLikes')) : 0;
-    let hasLiked = localStorage.getItem('userHasLiked') === 'true';
-    
-    likeCountDisplay.textContent = currentLikes;
-    if (hasLiked) {
-        likeButton.classList.add('liked');
-        heartIcon.classList.replace('far', 'fas'); 
-    }
-
-    likeButton.addEventListener('click', () => {
-        if (hasLiked) {
-            currentLikes--;
-            hasLiked = false;
-            likeButton.classList.remove('liked');
-            heartIcon.classList.replace('fas', 'far'); 
-        } else {
-            currentLikes++;
-            hasLiked = true;
-            likeButton.classList.add('liked');
-            heartIcon.classList.replace('far', 'fas'); 
-            
-            likeButton.classList.remove('pop');
-            void likeButton.offsetWidth; 
-            likeButton.classList.add('pop');
-        }
-        
-        likeCountDisplay.textContent = currentLikes;
-        localStorage.setItem('portfolioLikes', currentLikes);
-        localStorage.setItem('userHasLiked', hasLiked);
-    });
-
-    // --- Video Demo Modal Logic ---
-    const videoModal = document.getElementById('video-modal');
-    const videoPlayer = document.getElementById('modal-video-player');
-    const videoModalClose = document.getElementById('video-modal-close');
-    const viewDemoButtons = document.querySelectorAll('.view-demo-btn');
-
-    function openVideoModal(videoSrc) {
-        // Set the source of the video player
-        videoPlayer.src = videoSrc;
-        videoModal.classList.add('active');
-        body.classList.add('modal-open');
-        
-        // Auto-play the video when opened
-        videoPlayer.play(); 
-    }
-
-    function closeVideoModal() {
-        videoModal.classList.remove('active');
-        body.classList.remove('modal-open');
-        
-        // Pause the video and clear the source when closing so it doesn't keep playing in the background
-        videoPlayer.pause();
-        setTimeout(() => {
-            videoPlayer.src = "";
-        }, 300);
-    }
-
-    viewDemoButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Grab the video path from the data-video attribute in the HTML
-            const videoSrc = button.getAttribute('data-video');
-            openVideoModal(videoSrc);
-        });
-    });
-
-    videoModalClose.addEventListener('click', closeVideoModal);
-    videoModal.addEventListener('click', (e) => { 
-        if (e.target === videoModal) closeVideoModal(); 
-    });
-
-    // --- Global Escape Key Listener ---
-    document.addEventListener('keydown', (e) => { 
-        if (e.key === 'Escape') {
-            closeModal(); 
-            closeImageModal(); 
-            if(typeof closeVideoModal === 'function') closeVideoModal(); // Added this line
-        }
-    });
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Mobile Navigation Toggle ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
-        });
-    });
-
-    // --- Light/Dark Mode Toggle ---
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.className = savedTheme; 
-    } else {
-        body.className = 'light-mode'; 
-    }
-
-    themeToggle.addEventListener('click', () => {
-        if (body.classList.contains('light-mode')) {
-            body.classList.replace('light-mode', 'dark-mode');
-            localStorage.setItem('theme', 'dark-mode');
-        } else {
-            body.classList.replace('dark-mode', 'light-mode');
-            localStorage.setItem('theme', 'light-mode');
-        }
-    });
-
-    // --- Scroll Spy for Active Navigation Links (Only runs on index.html) ---
-    const sections = document.querySelectorAll('section[id]');
-    const navLinksList = document.querySelectorAll('.nav-links a');
-
-    if (sections.length > 0) {
-        function highlightNavLink() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100; 
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinksList.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current) && current !== '') {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', highlightNavLink);
-        highlightNavLink();
-    }
-
-    // --- Unified Intersection Observer for Scroll Animations ---
-    const animatedElements = document.querySelectorAll('[data-animation]');
-
-    const animationObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const element = entry.target;
-                const delay = parseInt(element.dataset.delay) || 0;
-
-                setTimeout(() => {
-                    element.classList.add('is-visible');
-                }, delay);
-                
-                observer.unobserve(element);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    animatedElements.forEach(element => {
-        animationObserver.observe(element);
-    });
-
-    // --- Image Modal (Lightbox) Logic ---
-    const imageModal = document.getElementById('image-modal');
-    const modalImageView = document.getElementById('modal-image-view');
-    const imageModalClose = document.getElementById('image-modal-close');
-    const certificateTriggers = document.querySelectorAll('.certificate-trigger');
-
-    if (imageModal) {
+    if (imageModal && modalImageView && imageModalClose) {
         function openImageModal(imageSrc) {
             modalImageView.src = imageSrc;
             imageModal.classList.add('active');
@@ -384,8 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
         certificateTriggers.forEach(button => {
             button.addEventListener('click', (e) => {
                 const card = e.target.closest('.cert-card-horizontal');
-                const imgSrc = card.querySelector('img').src;
-                openImageModal(imgSrc);
+                if (card) {
+                    const imgSrc = card.querySelector('img').src;
+                    openImageModal(imgSrc);
+                }
             });
         });
 
@@ -395,12 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Heart Like/Unlike Functionality ---
+    // --- 6. Heart Like/Unlike Functionality ---
     const likeButton = document.getElementById('like-button');
-    if (likeButton) {
-        const likeCountDisplay = document.getElementById('like-count');
-        const heartIcon = document.getElementById('heart-icon');
-        
+    const likeCountDisplay = document.getElementById('like-count');
+    const heartIcon = document.getElementById('heart-icon');
+    
+    if (likeButton && likeCountDisplay && heartIcon) {
         let currentLikes = localStorage.getItem('portfolioLikes') ? parseInt(localStorage.getItem('portfolioLikes')) : 0;
         let hasLiked = localStorage.getItem('userHasLiked') === 'true';
         
@@ -433,13 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Video Demo Modal Logic ---
+    // --- 7. Video Demo Modal Logic ---
     const videoModal = document.getElementById('video-modal');
     const videoPlayer = document.getElementById('modal-video-player');
     const videoModalClose = document.getElementById('video-modal-close');
     const viewDemoButtons = document.querySelectorAll('.view-demo-btn');
 
-    if (videoModal) {
+    if (videoModal && videoPlayer && videoModalClose) {
         function openVideoModal(videoSrc) {
             videoPlayer.src = videoSrc;
             videoModal.classList.add('active');
@@ -460,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const videoSrc = button.getAttribute('data-video');
-                openVideoModal(videoSrc);
+                if (videoSrc) openVideoModal(videoSrc);
             });
         });
 
@@ -470,14 +205,131 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Global Escape Key Listener ---
+    // --- 8. Floating Chat Widget Logic ---
+    const chatToggleBtn = document.getElementById('chat-toggle-btn');
+    const chatCloseBtn = document.getElementById('chat-close-btn');
+    const chatPanel = document.getElementById('chat-panel');
+
+    if (chatToggleBtn && chatPanel && chatCloseBtn) {
+        // Open/Close panel when clicking the floating button
+        chatToggleBtn.addEventListener('click', () => {
+            chatPanel.classList.toggle('active');
+        });
+
+        // Close panel when clicking the 'X' button
+        chatCloseBtn.addEventListener('click', () => {
+            chatPanel.classList.remove('active');
+        });
+    }
+
+    // --- 9. Global Escape Key Listener ---
     document.addEventListener('keydown', (e) => { 
         if (e.key === 'Escape') {
-            if (typeof closeImageModal === 'function' && imageModal && imageModal.classList.contains('active')) closeImageModal(); 
-            if (typeof closeVideoModal === 'function' && videoModal && videoModal.classList.contains('active')) closeVideoModal();
+            // Close Image Modal
+            if (imageModal && imageModal.classList.contains('active')) {
+                imageModal.classList.remove('active');
+                body.classList.remove('modal-open');
+            }
+            // Close Video Modal
+            if (videoModal && videoModal.classList.contains('active')) {
+                videoModal.classList.remove('active');
+                body.classList.remove('modal-open');
+                if (videoPlayer) videoPlayer.pause();
+            }
+            // Close Chat Panel
+            if (chatPanel && chatPanel.classList.contains('active')) {
+                chatPanel.classList.remove('active');
+            }
         }
     });
 
-});
+    // --- 10. 3D Project Gallery Logic ---
+    const galleryContainers = document.querySelectorAll('.project-gallery-container');
+
+    galleryContainers.forEach(container => {
+        const track = container.querySelector('.gallery-track');
+        const items = Array.from(track.querySelectorAll('.gallery-item'));
+        const prevBtn = container.querySelector('.gallery-nav.prev');
+        const nextBtn = container.querySelector('.gallery-nav.next');
+        const dotsContainer = container.nextElementSibling;
+
+        if (items.length === 0) return;
+
+        let currentIndex = 0;
+
+        // Generate Dots
+        items.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('gallery-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
+
+        function updateGallery() {
+            items.forEach((item, index) => {
+                // Reset classes
+                item.className = 'gallery-item';
+                
+                // Calculate position relative to current index
+                let diff = index - currentIndex;
+                
+                // Handle infinite wrapping logic
+                if (diff < -Math.floor(items.length / 2)) diff += items.length;
+                if (diff > Math.floor(items.length / 2)) diff -= items.length;
+
+                // Apply specific classes based on distance from center
+                if (diff === 0) {
+                    item.classList.add('active');
+                } else if (diff === -1) {
+                    item.classList.add('prev-1');
+                } else if (diff === 1) {
+                    item.classList.add('next-1');
+                } else if (diff === -2) {
+                    item.classList.add('prev-2');
+                } else if (diff === 2) {
+                    item.classList.add('next-2');
+                }
+            });
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateGallery();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            updateGallery();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updateGallery();
+        }
+
+        // Button Listeners
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+        // Click on side images to navigate
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!item.classList.contains('active')) {
+                    goToSlide(index);
+                }
+            });
+        });
+
+        // Initialize first view
+        updateGallery();
+    });
 
 });

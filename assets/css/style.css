@@ -1141,3 +1141,401 @@ body.dark-mode .project-card-horizontal .project-img {
         gap: 10px;
     }
 }
+
+/* --- Breadcrumb Row (Top Navigation) --- */
+.breadcrumb-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.breadcrumb-row .breadcrumb {
+    margin-bottom: 0; /* Removes old margin so it aligns perfectly with the button */
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+/* =========================================
+   FLOATING CHAT WIDGET
+   ========================================= */
+
+.chat-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+/* --- Floating Button --- */
+.chat-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--accent-dark);
+    color: var(--accent-light);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.chat-button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* --- Chat Panel --- */
+.chat-panel {
+    position: absolute;
+    bottom: 80px; 
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    
+    /* Animation Setup */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.3s ease;
+}
+
+/* Active State for Animation */
+.chat-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* --- Header --- */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-avatar {
+    font-size: 2rem;
+    color: var(--text-secondary);
+}
+
+.chat-header-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.chat-status {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981; /* Subtle green for online status */
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.chat-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.chat-close-btn:hover {
+    color: var(--text-primary);
+}
+
+/* --- Body --- */
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-message {
+    max-width: 85%;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+.bot-message p {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 12px 16px;
+    border-radius: 12px 12px 12px 4px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border: 1px solid var(--border-color);
+}
+
+.message-time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    margin-left: 4px;
+}
+
+/* --- Footer (Input Area) --- */
+.chat-footer {
+    padding: 15px;
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+    border-color: var(--text-secondary);
+}
+
+.chat-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-dark);
+    color: var(--accent-light);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.chat-send-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Hide chat widget smoothly when any image/video modal is open */
+body.modal-open .chat-widget {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .chat-panel {
+        width: calc(100vw - 40px);
+        right: -10px; /* Adjust for mobile padding */
+    }
+}
+
+/* =========================================
+   3D PROJECT GALLERY COMPONENT
+   ========================================= */
+
+.project-gallery-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Problem 2: Shrunk from 450px to wrap tightly around the images */
+    background-color: transparent; /* Problem 1: Removed dark background */
+    /* Removed border-radius and box-shadow to remove the "large box" feel */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.gallery-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.gallery-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    max-width: 600px;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.5s ease, 
+                filter 0.5s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    /* Default hidden state */
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Gallery States */
+.gallery-item.active {
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+    opacity: 1;
+    z-index: 5;
+    filter: blur(0);
+    pointer-events: auto;
+    cursor: default;
+}
+
+.gallery-item.prev-1 {
+    transform: translate(-90%, -50%) scale(0.75) rotateY(15deg);
+    opacity: 0.6;
+    z-index: 4;
+    filter: blur(4px);
+    pointer-events: auto;
+}
+
+.gallery-item.next-1 {
+    transform: translate(-10%, -50%) scale(0.75) rotateY(-15deg);
+    opacity: 0.6;
+    z-index: 4;
+    filter: blur(4px);
+    pointer-events: auto;
+}
+
+.gallery-item.prev-2 {
+    transform: translate(-120%, -50%) scale(0.55) rotateY(25deg);
+    opacity: 0.3;
+    z-index: 3;
+    filter: blur(8px);
+    pointer-events: auto;
+}
+
+.gallery-item.next-2 {
+    transform: translate(20%, -50%) scale(0.55) rotateY(-25deg);
+    opacity: 0.3;
+    z-index: 3;
+    filter: blur(8px);
+    pointer-events: auto;
+}
+
+/* Navigation Buttons */
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px; /* Matches the rounded square in the image */
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-nav:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.gallery-nav.prev { left: 30px; }
+.gallery-nav.next { right: 30px; }
+
+.gallery-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin-top: 4px;    /* reduced from 12px */
+    margin-bottom: 24px;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #666666;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-dot.active {
+    background: #ffffff;
+    transform: scale(1.2);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .project-gallery-container { height: 220px; } /* Shrunk from 300px to wrap tightly */
+    .gallery-item { width: 75%; }
+    .gallery-nav.prev { left: 10px; }
+    .gallery-nav.next { right: 10px; }
+}
