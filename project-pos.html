@@ -26,18 +26,17 @@
             </div>
         </div>
     </nav>
-
+ 
     <main>
         <section class="project-details-section">
             <div class="container">
-                <!-- NEW: Breadcrumb Row with Back Button across from it -->
                 <div class="breadcrumb-row" data-animation="fade-up">
                     <div class="breadcrumb">
                         <a href="index.html">Home</a> / <a href="projects.html">Projects</a> / <span>LW Mart Manager</span>
                     </div>
                     <a href="projects.html" class="btn btn-outline btn-sm"><i class="fas fa-arrow-left"></i> Back to Projects</a>
                 </div>
-
+ 
                 <div class="project-header-top" data-animation="fade-up" data-delay="100">
                     <div class="project-title-area">
                         <span class="project-badge">Desktop Application</span>
@@ -45,48 +44,46 @@
                         
                         <div class="project-actions row-actions mt-20">
                             <button class="btn btn-dark view-demo-btn" data-video="assets/video/project2.mp4"><i class="fas fa-external-link-alt"></i> Live Demo</button>
-                            <a href="#" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/Rays30/lw-mart-manager" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
-
+ 
                     <div class="project-meta-box">
                         <div class="meta-item"><i class="far fa-calendar-alt"></i><div class="meta-info"><span>Year</span><strong>2024</strong></div></div>
                         <div class="meta-item"><i class="far fa-folder-open"></i><div class="meta-info"><span>Type</span><strong>System Development</strong></div></div>
                         <div class="meta-item"><i class="far fa-clock"></i><div class="meta-info"><span>Duration</span><strong>2 Months</strong></div></div>
                     </div>
                 </div>
-
+ 
                 <!-- 3D Image Gallery -->
-<div class="project-gallery-container" data-animation="fade-up" data-delay="200">
-    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
-    
-    <div class="gallery-track">
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 1"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 2"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 3"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 4"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 5"></div>
-    </div>
-
-    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
-</div>
-
-<div class="gallery-dots"></div>
-
+                <div class="project-gallery-container" data-animation="fade-up" data-delay="200">
+                    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 1"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 2"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 3"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 4"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 5"></div>
+                    </div>
+                    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="gallery-dots"></div>
+ 
                 <div class="project-details-grid" data-animation="fade-up">
                     <div class="details-card overview-card">
                         <h3>OVERVIEW</h3>
                         <h2>Project Overview</h2>
-                        <p>A desktop-based business management system designed for LW Mini Mart to replace manual, paper-based operations with a structured and efficient digital solution. The system integrates point-of-sale transactions, inventory management, and financial tracking into a single offline application, making it ideal for small businesses with limited or unreliable internet access.</p>
-                        <p class="mt-10">It enables staff to process sales quickly through an intuitive POS interface while automatically updating inventory levels in real time. Store owners can monitor stock availability, track product expiry, and manage cash flow through detailed reports and analytics.</p>
+                        <p>LW Mart Manager is a fully offline desktop application built for LW Mini Mart to replace manual, paper-based store operations with a fast, reliable, and structured digital system. It combines a Point-of-Sale (POS) terminal, real-time inventory management, shift-based cashflow tracking, and detailed financial reporting — all in one integrated application that works without internet connectivity.</p>
+                        <p class="mt-10">The system supports two user roles — Admin and Staff — each with tailored access and controls. Staff can process sales and manage their shift, while Admins gain full visibility over store performance, inventory health, and financial data. The application is powered by IndexedDB for local data persistence, ensuring data is always available and never dependent on a server.</p>
                     </div>
-
+ 
                     <div class="details-card side-card">
                         <div class="side-section">
                             <h3><i class="far fa-user"></i> MY ROLE</h3>
                             <ul>
                                 <li>Project Manager</li>
                                 <li>System Lead</li>
+                                <li>UI/UX Designer</li>
                             </ul>
                         </div>
                         
@@ -94,7 +91,6 @@
                             <h3><i class="fas fa-code"></i> TECH STACK</h3>
                             <div class="tech-group">
                                 <span>Frontend</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fab fa-react" style="color: #61DAFB;"></i> React</span> 
                                     <span><i class="fas fa-wind" style="color: #38B2AC;"></i> Tailwind CSS</span>
@@ -102,55 +98,65 @@
                             </div>
                             <div class="tech-group">
                                 <span>Backend & Tools</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fas fa-desktop" style="color: #FFC131;"></i> Tauri</span> 
-                                    <span><i class="fas fa-database" style="color: #4B5563;"></i> IndexedDB</span>
+                                    <span><i class="fas fa-database" style="color: #4B5563;"></i> IndexedDB (Dexie)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+ 
                 <div class="features-grid" data-animation="fade-up">
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-star"></i> KEY FEATURES</h3>
                         <ul>
-                            <li>POS system with cart and receipt</li>
-                            <li>Inventory tracking with stock alerts</li>
-                            <li>Cashflow monitoring and reports</li>
-                            <li>Role-based access (Admin/Staff)</li>
-                            <li>Offline functionality</li>
+                            <li>POS with cart, barcode scanner (F2), product search (F4), and printable receipts</li>
+                            <li>Park & resume orders — save a transaction and return to it later</li>
+                            <li>Real-time inventory tracking with low stock and expiry date alerts</li>
+                            <li>Product write-off logging for damaged or expired goods</li>
+                            <li>Restock history and PDF inventory reports with store signature</li>
+                            <li>Shift management — open/close cash shifts with opening balance tracking</li>
+                            <li>Cashflow monitoring with income/expense breakdown (daily, weekly, monthly, all-time)</li>
+                            <li>AI-style predictive stock shortage alerts with estimated daily revenue loss</li>
+                            <li>Role-based access: Admin (full control) and Staff (shift-limited)</li>
+                            <li>Database backup and restore for data safety</li>
+                            <li>Fully offline — no internet required</li>
                         </ul>
                     </div>
-
+ 
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-bullseye"></i> PROBLEM &rarr; SOLUTION</h3>
-                        <p><strong>Problem:</strong> Manual tracking caused inventory errors and poor financial visibility.</p>
-                        <p class="mt-10"><strong>Solution:</strong> Built an all-in-one offline system for sales, inventory, and financial tracking.</p>
+                        <p><strong>Problem:</strong> The store relied on manual notebooks for tracking sales and inventory, leading to frequent stock errors, missing transaction records, and zero visibility into daily profits or losses.</p>
+                        <p class="mt-10"><strong>Solution:</strong> Built a complete offline-first desktop system that automates sales processing, keeps inventory accurate in real time, logs every transaction, and generates detailed financial and inventory reports — replacing guesswork with data.</p>
                     </div>
-
+ 
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-tools"></i> CHALLENGES</h3>
                         <ul>
-                            <li>Complex business logic</li>
-                            <li>Feature prioritization under time pressure</li>
+                            <li>Designing complex business logic (shift tracking, predictive stock alerts, write-offs) entirely on the client side without a backend</li>
+                            <li>Managing offline data relationships and consistency using IndexedDB (Dexie.js)</li>
+                            <li>Balancing feature scope and delivery within a 2-month timeline</li>
+                            <li>Crafting a UI that is intuitive enough for non-technical store staff to use daily</li>
                         </ul>
                     </div>
                 </div>
-
+ 
                 <div class="details-card full-width-card" data-animation="fade-up">
                     <h3><i class="far fa-lightbulb"></i> LEARNINGS</h3>
                     <ul>
-                        <li>Offline-first system design</li>
-                        <li>Real-world business logic implementation</li>
-                        <li>Project management and decision-making</li>
+                        <li>Offline-first system design and local database management with Dexie.js (IndexedDB wrapper)</li>
+                        <li>Building desktop apps with Tauri — combining a React frontend with a Rust-powered shell</li>
+                        <li>Translating real-world business operations (shifts, restocks, cashflow) into working software logic</li>
+                        <li>Designing role-based access control and secure authentication with bcrypt password hashing</li>
+                        <li>UI/UX design for productivity tools — making dense data readable and interactions feel natural for everyday store use</li>
+                        <li>Project management: scoping features, prioritizing under time pressure, and making technical decisions independently</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
-
+ 
     <footer class="site-footer">
         <div class="container footer-grid">
             <div class="footer-brand">
@@ -166,7 +172,6 @@
                     <li><a href="index.html#certificates">Certificates</a></li>
                 </ul>
             </div>
-            <!-- Restored Message Box -->
             <div class="footer-contact">
                 <h3>MESSAGE ME</h3>
                 <form class="contact-form">
@@ -183,19 +188,17 @@
             <p>&copy; 2026 Raysel Sabellano. All rights reserved.</p>
         </div>
     </footer>
-
+ 
     <div id="video-modal" class="modal-overlay">
         <div class="video-modal-content">
             <button class="modal-close" id="video-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
             <video id="modal-video-player" controls><source src="" type="video/mp4"></video>
         </div>
     </div>
-
-<!-- Chat Widget -->
+ 
+    <!-- Chat Widget -->
     <div class="chat-widget">
-        <!-- Chat Panel -->
         <div class="chat-panel" id="chat-panel">
-            <!-- Header -->
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-avatar"><i class="fas fa-user-circle"></i></div>
@@ -206,28 +209,22 @@
                 </div>
                 <button class="chat-close-btn" id="chat-close-btn"><i class="fas fa-times"></i></button>
             </div>
-            
-            <!-- Body -->
             <div class="chat-body">
                 <div class="chat-message bot-message">
                     <p>Hi! 👋<br><br>Thanks for visiting my portfolio. You can ask me about my projects, skills, or experience.</p>
                     <span class="message-time">Just now</span>
                 </div>
             </div>
-            
-            <!-- Footer (Input) -->
             <div class="chat-footer">
                 <input type="text" placeholder="Type your message..." class="chat-input">
                 <button class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
-
-        <!-- Floating Toggle Button -->
         <button class="chat-button" id="chat-toggle-btn" aria-label="Open Chat">
             <i class="fas fa-comment-dots"></i>
         </button>
     </div>
-
+ 
     <script src="assets/js/script.js"></script>
 </body>
 </html>
