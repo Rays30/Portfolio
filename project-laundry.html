@@ -162,6 +162,13 @@
             <div class="footer-brand">
                 <h2>Raysel Sabellano</h2>
                 <p><i>"Code. Learn. Build. Repeat."</i></p>
+                 <div class="contact-icons footer-contacts">
+                    <a href="tel:+639053446245"><i class="fas fa-phone flip-horizontal"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/639053446245" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/Rays30" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/raysel-sabellano-806959397" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
             <div class="footer-links">
                 <h3>QUICK LINKS</h3>
@@ -190,11 +197,15 @@
         </div>
     </footer>
 
-    <div id="video-modal" class="modal-overlay">
-        <div class="video-modal-content">
-            <button class="modal-close" id="video-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
-            <video id="modal-video-player" controls><source src="" type="video/mp4"></video>
-        </div>
+    <div id="image-modal" class="modal-overlay">
+    <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+    <div class="image-modal-content">
+        <button class="image-modal-nav prev" id="image-modal-prev"><i class="fas fa-chevron-left"></i></button>
+        <img id="modal-image-view" src="" alt="Gallery Full View">
+        <button class="image-modal-nav next" id="image-modal-next"><i class="fas fa-chevron-right"></i></button>
+        <div class="image-modal-counter" id="image-modal-counter">1 / 5</div>
+        <div class="image-modal-thumbs" id="image-modal-thumbs"></div>
+    </div>
     </div>
 
 <!-- Chat Widget -->

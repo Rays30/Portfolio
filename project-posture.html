@@ -49,9 +49,9 @@
                     </div>
 
                     <div class="project-meta-box">
-                        <div class="meta-item"><i class="far fa-calendar-alt"></i><div class="meta-info"><span>Year</span><strong>2024</strong></div></div>
+                        <div class="meta-item"><i class="far fa-calendar-alt"></i><div class="meta-info"><span>Year</span><strong>2025</strong></div></div>
                         <div class="meta-item"><i class="far fa-folder-open"></i><div class="meta-info"><span>Type</span><strong>AI Integration</strong></div></div>
-                        <div class="meta-item"><i class="far fa-clock"></i><div class="meta-info"><span>Duration</span><strong>1 Month</strong></div></div>
+                        <div class="meta-item"><i class="far fa-clock"></i><div class="meta-info"><span>Duration</span><strong>1 Week</strong></div></div>
                     </div>
                 </div>
 
@@ -59,11 +59,15 @@
                 <div class="project-gallery-container" data-animation="fade-up" data-delay="200">
                     <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
                     <div class="gallery-track">
-                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 1"></div>
-                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 2"></div>
-                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 3"></div>
-                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 4"></div>
-                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 5"></div>
+                        <div class="gallery-item"><img src="assets/images/posture-app.png" alt="Gallery Image 1"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery1.png" alt="Gallery Image 2"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery2.png" alt="Gallery Image 3"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery3.png" alt="Gallery Image 4"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery4.png" alt="Gallery Image 5"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery5.png" alt="Gallery Image 6"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery6.png" alt="Gallery Image 7"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery7.png" alt="Gallery Image 8"></div>
+                        <div class="gallery-item"><img src="assets/images/posture_gallery8.png" alt="Gallery Image 9"></div>
                     </div>
                     <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
                 </div>
@@ -169,6 +173,13 @@
             <div class="footer-brand">
                 <h2>Raysel Sabellano</h2>
                 <p><i>"Code. Learn. Build. Repeat."</i></p>
+                 <div class="contact-icons footer-contacts">
+                    <a href="tel:+639053446245"><i class="fas fa-phone flip-horizontal"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/639053446245" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/Rays30" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/raysel-sabellano-806959397" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
             <div class="footer-links">
                 <h3>QUICK LINKS</h3>
@@ -196,11 +207,15 @@
         </div>
     </footer>
 
-    <div id="video-modal" class="modal-overlay">
-        <div class="video-modal-content">
-            <button class="modal-close" id="video-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
-            <video id="modal-video-player" controls><source src="" type="video/mp4"></video>
-        </div>
+    <div id="image-modal" class="modal-overlay">
+    <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+    <div class="image-modal-content">
+        <button class="image-modal-nav prev" id="image-modal-prev"><i class="fas fa-chevron-left"></i></button>
+        <img id="modal-image-view" src="" alt="Gallery Full View">
+        <button class="image-modal-nav next" id="image-modal-next"><i class="fas fa-chevron-right"></i></button>
+        <div class="image-modal-counter" id="image-modal-counter">1 / 9</div>
+        <div class="image-modal-thumbs" id="image-modal-thumbs"></div>
+    </div>
     </div>
 
     <!-- Chat Widget -->

@@ -243,93 +243,135 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 10. 3D Project Gallery Logic ---
-    const galleryContainers = document.querySelectorAll('.project-gallery-container');
+// --- 10. 3D Project Gallery Logic ---
+const galleryContainers = document.querySelectorAll('.project-gallery-container');
 
-    galleryContainers.forEach(container => {
-        const track = container.querySelector('.gallery-track');
-        const items = Array.from(track.querySelectorAll('.gallery-item'));
-        const prevBtn = container.querySelector('.gallery-nav.prev');
-        const nextBtn = container.querySelector('.gallery-nav.next');
-        const dotsContainer = container.nextElementSibling;
+galleryContainers.forEach(container => {
+    const track = container.querySelector('.gallery-track');
+    const items = Array.from(track.querySelectorAll('.gallery-item'));
+    const prevBtn = container.querySelector('.gallery-nav.prev');
+    const nextBtn = container.querySelector('.gallery-nav.next');
+    const dotsContainer = container.nextElementSibling;
 
-        if (items.length === 0) return;
+    if (items.length === 0) return;
 
-        let currentIndex = 0;
+    let currentIndex = 0;
 
-        // Generate Dots
-        items.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.classList.add('gallery-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
-
-        function updateGallery() {
-            items.forEach((item, index) => {
-                // Reset classes
-                item.className = 'gallery-item';
-                
-                // Calculate position relative to current index
-                let diff = index - currentIndex;
-                
-                // Handle infinite wrapping logic
-                if (diff < -Math.floor(items.length / 2)) diff += items.length;
-                if (diff > Math.floor(items.length / 2)) diff -= items.length;
-
-                // Apply specific classes based on distance from center
-                if (diff === 0) {
-                    item.classList.add('active');
-                } else if (diff === -1) {
-                    item.classList.add('prev-1');
-                } else if (diff === 1) {
-                    item.classList.add('next-1');
-                } else if (diff === -2) {
-                    item.classList.add('prev-2');
-                } else if (diff === 2) {
-                    item.classList.add('next-2');
-                }
-            });
-
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
-
-        function goToSlide(index) {
-            currentIndex = index;
-            updateGallery();
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % items.length;
-            updateGallery();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            updateGallery();
-        }
-
-        // Button Listeners
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-        // Click on side images to navigate
-        items.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                if (!item.classList.contains('active')) {
-                    goToSlide(index);
-                }
-            });
-        });
-
-        // Initialize first view
-        updateGallery();
+    // Generate Dots
+    items.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('gallery-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
     });
+
+    const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
+
+    function updateGallery() {
+        items.forEach((item, index) => {
+            item.className = 'gallery-item';
+            let diff = index - currentIndex;
+            if (diff < -Math.floor(items.length / 2)) diff += items.length;
+            if (diff > Math.floor(items.length / 2)) diff -= items.length;
+
+            if (diff === 0) item.classList.add('active');
+            else if (diff === -1) item.classList.add('prev-1');
+            else if (diff === 1) item.classList.add('next-1');
+            else if (diff === -2) item.classList.add('prev-2');
+            else if (diff === 2) item.classList.add('next-2');
+        });
+
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateGallery();
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateGallery();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateGallery();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+    // Single click listener — side images navigate, center image opens modal
+    items.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            if (!item.classList.contains('active')) {
+                goToSlide(index);
+                return;
+            }
+            // Center image — open fullscreen modal
+            const images = items.map(i => i.querySelector('img').src);
+            openGalleryModal(images, currentIndex);
+        });
+    });
+
+    updateGallery();
+});
+
+// --- Gallery Modal with nav + thumbs ---
+function openGalleryModal(images, startIndex) {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image-view');
+    const counter = document.getElementById('image-modal-counter');
+    const thumbsContainer = document.getElementById('image-modal-thumbs');
+    const prevBtn = document.getElementById('image-modal-prev');
+    const nextBtn = document.getElementById('image-modal-next');
+    if (!modal || !modalImg) return;
+
+    let current = startIndex;
+
+    // Build thumbnails
+    thumbsContainer.innerHTML = '';
+    images.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.alt = `Thumbnail ${i + 1}`;
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsContainer.appendChild(thumb);
+    });
+
+    function goTo(index) {
+        current = (index + images.length) % images.length;
+        modalImg.src = images[current];
+        counter.textContent = `${current + 1} / ${images.length}`;
+        thumbsContainer.querySelectorAll('img').forEach((t, i) => {
+            t.classList.toggle('active', i === current);
+        });
+    }
+
+    prevBtn.onclick = () => goTo(current - 1);
+    nextBtn.onclick = () => goTo(current + 1);
+
+    function handleKey(e) {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+    }
+    document.addEventListener('keydown', handleKey);
+
+    modal.addEventListener('click', function cleanup(e) {
+        if (e.target === modal) {
+            document.removeEventListener('keydown', handleKey);
+            modal.removeEventListener('click', cleanup);
+        }
+    });
+
+    goTo(current);
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
 
 });
