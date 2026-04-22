@@ -30,7 +30,6 @@
     <main>
         <section class="project-details-section">
             <div class="container">
-                <!-- NEW: Breadcrumb Row with Back Button across from it -->
                 <div class="breadcrumb-row" data-animation="fade-up">
                     <div class="breadcrumb">
                         <a href="index.html">Home</a> / <a href="projects.html">Projects</a> / <span>Posture Detection App</span>
@@ -57,28 +56,25 @@
                 </div>
 
                 <!-- 3D Image Gallery -->
-<div class="project-gallery-container" data-animation="fade-up" data-delay="200">
-    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
-    
-    <div class="gallery-track">
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 1"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 2"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 3"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 4"></div>
-        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 5"></div>
-    </div>
-
-    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
-</div>
-
-<div class="gallery-dots"></div>
+                <div class="project-gallery-container" data-animation="fade-up" data-delay="200">
+                    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 1"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 2"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 3"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 4"></div>
+                        <div class="gallery-item"><img src="assets/images/lifewood_logo.png" alt="Gallery Image 5"></div>
+                    </div>
+                    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="gallery-dots"></div>
 
                 <div class="project-details-grid" data-animation="fade-up">
                     <div class="details-card overview-card">
                         <h3>OVERVIEW</h3>
                         <h2>Project Overview</h2>
-                        <p>An AI-powered desktop application designed to help users maintain proper posture during prolonged computer use. The system uses a machine learning model trained through image classification to detect posture in real time via webcam.</p>
-                        <p class="mt-10">When poor posture is detected for a set duration, the system triggers a sound alert to notify the user. This promotes awareness and helps prevent long-term health issues.</p>
+                        <p>The Posture Detection App is an AI-powered Electron desktop application that uses a custom-trained machine learning model (Google Teachable Machine + PoseNet) to monitor a user's posture in real time through their webcam. It classifies posture into three states — Good Posture, Slouching, and Away — and alerts the user with a sound when poor posture is held for too long.</p>
+                        <p class="mt-10">The app features a multi-window Electron architecture where a hidden background worker handles all AI inference separately from the UI, keeping the interface fast and responsive. Users can run timed or free-mode sessions, track their posture history over time, view progress charts, customize settings, and unlock visual themes by hitting posture goals — making it both functional and engaging.</p>
                     </div>
 
                     <div class="details-card side-card">
@@ -87,6 +83,7 @@
                             <ul>
                                 <li>Model Training</li>
                                 <li>Functionality Implementation</li>
+                                <li>UI/UX Designer</li>
                             </ul>
                         </div>
                         
@@ -94,15 +91,19 @@
                             <h3><i class="fas fa-code"></i> TECH STACK</h3>
                             <div class="tech-group">
                                 <span>AI & Tools</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fas fa-brain" style="color: #FF6F00;"></i> Google Teachable Machine</span> 
-                                    <span><i class="fas fa-desktop" style="color: #FFC131;"></i> Tauri</span>
+                                    <span><i class="fas fa-person-walking" style="color: #4B5563;"></i> PoseNet</span>
+                                </div>
+                            </div>
+                            <div class="tech-group">
+                                <span>Desktop Framework</span>
+                                <div class="project-tags">
+                                    <span><i class="fas fa-desktop" style="color: #47848F;"></i> Electron</span>
                                 </div>
                             </div>
                             <div class="tech-group">
                                 <span>Frontend</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fab fa-html5" style="color: #E34F26;"></i> HTML</span> 
                                     <span><i class="fab fa-css3-alt" style="color: #1572B6;"></i> CSS</span> 
@@ -117,24 +118,33 @@
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-star"></i> KEY FEATURES</h3>
                         <ul>
-                            <li>Real-time posture detection</li>
-                            <li>AI model classification</li>
-                            <li>Sound alert system</li>
-                            <li>Timer-based monitoring</li>
+                            <li>Real-time AI posture detection via webcam — classifies Good Posture, Slouching, and Away states</li>
+                            <li>Background worker window handles AI inference separately to keep the UI smooth</li>
+                            <li>Sound alert triggered after user slouches for a configurable delay (default 3 seconds)</li>
+                            <li>Two session modes: Timed (set duration with countdown) and Free mode</li>
+                            <li>Session summary after each session — shows Good %, Slouching %, and Away % breakdown</li>
+                            <li>Session history saved locally — filterable by Today, This Week, or All Time</li>
+                            <li>Progress chart (Chart.js line graph) visualizing good posture vs. slouching over sessions</li>
+                            <li>Settings panel — toggle sound on/off, adjust slouch alert delay</li>
+                            <li>Theme system with 5 unlockable visual themes (earned by hitting posture milestones)</li>
+                            <li>Splash screen on launch for a polished app feel</li>
+                            <li>Pose skeleton overlay drawn on webcam canvas using PoseNet keypoints</li>
                         </ul>
                     </div>
 
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-bullseye"></i> PROBLEM &rarr; SOLUTION</h3>
-                        <p><strong>Problem:</strong> Users are unaware of poor posture during long computer use.</p>
-                        <p class="mt-10"><strong>Solution:</strong> Created an AI system that detects posture and alerts users in real time.</p>
+                        <p><strong>Problem:</strong> People who spend long hours at a computer often develop poor posture without realizing it, leading to back and neck problems over time. Awareness is the first step to correcting it — but there's no passive way to monitor yourself.</p>
+                        <p class="mt-10"><strong>Solution:</strong> Built a desktop app that passively watches through the webcam using a trained AI model and alerts users in real time when slouching is detected — turning an invisible habit into something measurable and correctable.</p>
                     </div>
 
                     <div class="details-card feature-box">
                         <h3><i class="fas fa-tools"></i> CHALLENGES</h3>
                         <ul>
-                            <li>Model accuracy (lighting, angles, body differences)</li>
-                            <li>Data collection for training</li>
+                            <li>Training a reliable model across varying lighting conditions, camera angles, and body types</li>
+                            <li>Collecting a diverse and balanced dataset for accurate classification</li>
+                            <li>Architecting a multi-window Electron app where a hidden worker runs AI inference and communicates with the UI via IPC messaging</li>
+                            <li>Designing a gamified theme unlock system that rewards real posture improvement without disrupting the core UX</li>
                         </ul>
                     </div>
                 </div>
@@ -142,9 +152,12 @@
                 <div class="details-card full-width-card" data-animation="fade-up">
                     <h3><i class="far fa-lightbulb"></i> LEARNINGS</h3>
                     <ul>
-                        <li>Machine learning fundamentals</li>
-                        <li>Importance of dataset quality</li>
-                        <li>AI integration into applications</li>
+                        <li>Machine learning fundamentals — training image classification models and understanding confidence thresholds</li>
+                        <li>The critical importance of dataset quality, diversity, and balance in model accuracy</li>
+                        <li>Multi-process Electron architecture — using IPC (Inter-Process Communication) to separate UI and background AI workers</li>
+                        <li>Integrating a TensorFlow.js / PoseNet model into a real desktop application</li>
+                        <li>UI/UX design for wellness tools — balancing information density with a clean, non-intrusive interface users are comfortable leaving open all day</li>
+                        <li>Building a theme and achievement system to add long-term engagement to a utility app</li>
                     </ul>
                 </div>
             </div>
@@ -166,7 +179,6 @@
                     <li><a href="index.html#certificates">Certificates</a></li>
                 </ul>
             </div>
-            <!-- Restored Message Box -->
             <div class="footer-contact">
                 <h3>MESSAGE ME</h3>
                 <form class="contact-form">
@@ -191,11 +203,9 @@
         </div>
     </div>
 
-<!-- Chat Widget -->
+    <!-- Chat Widget -->
     <div class="chat-widget">
-        <!-- Chat Panel -->
         <div class="chat-panel" id="chat-panel">
-            <!-- Header -->
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-avatar"><i class="fas fa-user-circle"></i></div>
@@ -206,23 +216,17 @@
                 </div>
                 <button class="chat-close-btn" id="chat-close-btn"><i class="fas fa-times"></i></button>
             </div>
-            
-            <!-- Body -->
             <div class="chat-body">
                 <div class="chat-message bot-message">
                     <p>Hi! 👋<br><br>Thanks for visiting my portfolio. You can ask me about my projects, skills, or experience.</p>
                     <span class="message-time">Just now</span>
                 </div>
             </div>
-            
-            <!-- Footer (Input) -->
             <div class="chat-footer">
                 <input type="text" placeholder="Type your message..." class="chat-input">
                 <button class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
-
-        <!-- Floating Toggle Button -->
         <button class="chat-button" id="chat-toggle-btn" aria-label="Open Chat">
             <i class="fas fa-comment-dots"></i>
         </button>
