@@ -1,5 +1,5 @@
 // assets/js/config.js
- const firebaseConfig = {
+ export const firebaseConfig = {
     apiKey: "YOUR_KEY_HERE",
     authDomain: "raysel-portfolio.firebaseapp.com",
     projectId: "raysel-portfolio",
