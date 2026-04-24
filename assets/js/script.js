@@ -1,4 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAJWpTOo4Wyq3BGx90G1J8rBmZOPUJN-YU",
+    authDomain: "raysel-portfolio.firebaseapp.com",
+    projectId: "raysel-portfolio",
+    storageBucket: "raysel-portfolio.firebasestorage.app",
+    messagingSenderId: "267078492486",
+    appId: "1:267078492486:web:465a045b68b4239c744547",
+    measurementId: "G-N9BCHNFNKM"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 1. Mobile Navigation Toggle ---
     const menuToggle = document.querySelector('.menu-toggle');
@@ -25,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeToggle) {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
-            body.className = savedTheme; 
+            body.className = savedTheme;
         } else {
-            body.className = 'light-mode'; 
+            body.className = 'light-mode';
         }
 
         themeToggle.addEventListener('click', () => {
@@ -46,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinksList = document.querySelectorAll('.nav-links a');
 
     function highlightNavLink() {
-        if (sections.length === 0) return; // Stops script if not on homepage
+        if (sections.length === 0) return;
 
         let current = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100; 
+            const sectionTop = section.offsetTop - 100;
             const sectionHeight = section.clientHeight;
             if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
@@ -81,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         element.classList.add('is-visible');
                     }, delay);
-                    
+
                     observer.unobserve(element);
                 }
             });
@@ -111,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function closeImageModal() {
             imageModal.classList.remove('active');
             body.classList.remove('modal-open');
-            setTimeout(() => { modalImageView.src = ''; }, 300); 
+            setTimeout(() => { modalImageView.src = ''; }, 300);
         }
 
         certificateTriggers.forEach(button => {
@@ -125,46 +141,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         imageModalClose.addEventListener('click', closeImageModal);
-        imageModal.addEventListener('click', (e) => { 
-            if (e.target === imageModal) closeImageModal(); 
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) closeImageModal();
         });
     }
 
-    // --- 6. Heart Like/Unlike Functionality ---
+    // --- 6. Heart Like/Unlike Functionality (Firebase) ---
     const likeButton = document.getElementById('like-button');
     const likeCountDisplay = document.getElementById('like-count');
     const heartIcon = document.getElementById('heart-icon');
-    
+
     if (likeButton && likeCountDisplay && heartIcon) {
-        let currentLikes = localStorage.getItem('portfolioLikes') ? parseInt(localStorage.getItem('portfolioLikes')) : 0;
+        const likeRef = doc(db, "portfolio", "likes");
         let hasLiked = localStorage.getItem('userHasLiked') === 'true';
-        
-        likeCountDisplay.textContent = currentLikes;
-        if (hasLiked) {
-            likeButton.classList.add('liked');
-            heartIcon.classList.replace('far', 'fas'); 
+
+        // Load current count from Firestore
+        try {
+            const snap = await getDoc(likeRef);
+            if (snap.exists()) {
+                likeCountDisplay.textContent = snap.data().count;
+            }
+        } catch (e) {
+            console.error("Failed to load like count:", e);
         }
 
-        likeButton.addEventListener('click', () => {
-            if (hasLiked) {
-                currentLikes--;
-                hasLiked = false;
-                likeButton.classList.remove('liked');
-                heartIcon.classList.replace('fas', 'far'); 
-            } else {
-                currentLikes++;
-                hasLiked = true;
-                likeButton.classList.add('liked');
-                heartIcon.classList.replace('far', 'fas'); 
-                
-                likeButton.classList.remove('pop');
-                void likeButton.offsetWidth; 
-                likeButton.classList.add('pop');
+        // Restore liked state for this user
+        if (hasLiked) {
+            likeButton.classList.add('liked');
+            heartIcon.classList.replace('far', 'fas');
+        }
+
+        likeButton.addEventListener('click', async () => {
+            try {
+                if (hasLiked) {
+                    await updateDoc(likeRef, { count: increment(-1) });
+                    hasLiked = false;
+                    likeButton.classList.remove('liked');
+                    heartIcon.classList.replace('fas', 'far');
+                } else {
+                    await updateDoc(likeRef, { count: increment(1) });
+                    hasLiked = true;
+                    likeButton.classList.add('liked');
+                    heartIcon.classList.replace('far', 'fas');
+
+                    likeButton.classList.remove('pop');
+                    void likeButton.offsetWidth;
+                    likeButton.classList.add('pop');
+                }
+
+                localStorage.setItem('userHasLiked', hasLiked);
+
+                // Refresh count from Firestore
+                const updated = await getDoc(likeRef);
+                if (updated.exists()) {
+                    likeCountDisplay.textContent = updated.data().count;
+                }
+            } catch (e) {
+                console.error("Failed to update like count:", e);
             }
-            
-            likeCountDisplay.textContent = currentLikes;
-            localStorage.setItem('portfolioLikes', currentLikes);
-            localStorage.setItem('userHasLiked', hasLiked);
         });
     }
 
@@ -179,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.src = videoSrc;
             videoModal.classList.add('active');
             body.classList.add('modal-open');
-            videoPlayer.play(); 
+            videoPlayer.play();
         }
 
         function closeVideoModal() {
@@ -200,8 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         videoModalClose.addEventListener('click', closeVideoModal);
-        videoModal.addEventListener('click', (e) => { 
-            if (e.target === videoModal) closeVideoModal(); 
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) closeVideoModal();
         });
     }
 
@@ -211,167 +245,158 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatPanel = document.getElementById('chat-panel');
 
     if (chatToggleBtn && chatPanel && chatCloseBtn) {
-        // Open/Close panel when clicking the floating button
         chatToggleBtn.addEventListener('click', () => {
             chatPanel.classList.toggle('active');
         });
 
-        // Close panel when clicking the 'X' button
         chatCloseBtn.addEventListener('click', () => {
             chatPanel.classList.remove('active');
         });
     }
 
     // --- 9. Global Escape Key Listener ---
-    document.addEventListener('keydown', (e) => { 
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            // Close Image Modal
             if (imageModal && imageModal.classList.contains('active')) {
                 imageModal.classList.remove('active');
                 body.classList.remove('modal-open');
             }
-            // Close Video Modal
             if (videoModal && videoModal.classList.contains('active')) {
                 videoModal.classList.remove('active');
                 body.classList.remove('modal-open');
                 if (videoPlayer) videoPlayer.pause();
             }
-            // Close Chat Panel
             if (chatPanel && chatPanel.classList.contains('active')) {
                 chatPanel.classList.remove('active');
             }
         }
     });
 
-// --- 10. 3D Project Gallery Logic ---
-const galleryContainers = document.querySelectorAll('.project-gallery-container');
+    // --- 10. 3D Project Gallery Logic ---
+    const galleryContainers = document.querySelectorAll('.project-gallery-container');
 
-galleryContainers.forEach(container => {
-    const track = container.querySelector('.gallery-track');
-    const items = Array.from(track.querySelectorAll('.gallery-item'));
-    const prevBtn = container.querySelector('.gallery-nav.prev');
-    const nextBtn = container.querySelector('.gallery-nav.next');
-    const dotsContainer = container.nextElementSibling;
+    galleryContainers.forEach(container => {
+        const track = container.querySelector('.gallery-track');
+        const items = Array.from(track.querySelectorAll('.gallery-item'));
+        const prevBtn = container.querySelector('.gallery-nav.prev');
+        const nextBtn = container.querySelector('.gallery-nav.next');
+        const dotsContainer = container.nextElementSibling;
 
-    if (items.length === 0) return;
+        if (items.length === 0) return;
 
-    let currentIndex = 0;
+        let currentIndex = 0;
 
-    // Generate Dots
-    items.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.classList.add('gallery-dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-
-    const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
-
-    function updateGallery() {
-        items.forEach((item, index) => {
-            item.className = 'gallery-item';
-            let diff = index - currentIndex;
-            if (diff < -Math.floor(items.length / 2)) diff += items.length;
-            if (diff > Math.floor(items.length / 2)) diff -= items.length;
-
-            if (diff === 0) item.classList.add('active');
-            else if (diff === -1) item.classList.add('prev-1');
-            else if (diff === 1) item.classList.add('next-1');
-            else if (diff === -2) item.classList.add('prev-2');
-            else if (diff === 2) item.classList.add('next-2');
+        items.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('gallery-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
         });
 
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
-    }
+        const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
 
-    function goToSlide(index) {
-        currentIndex = index;
-        updateGallery();
-    }
+        function updateGallery() {
+            items.forEach((item, index) => {
+                item.className = 'gallery-item';
+                let diff = index - currentIndex;
+                if (diff < -Math.floor(items.length / 2)) diff += items.length;
+                if (diff > Math.floor(items.length / 2)) diff -= items.length;
 
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % items.length;
-        updateGallery();
-    }
+                if (diff === 0) item.classList.add('active');
+                else if (diff === -1) item.classList.add('prev-1');
+                else if (diff === 1) item.classList.add('next-1');
+                else if (diff === -2) item.classList.add('prev-2');
+                else if (diff === 2) item.classList.add('next-2');
+            });
 
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        updateGallery();
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-    // Single click listener — side images navigate, center image opens modal
-    items.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            if (!item.classList.contains('active')) {
-                goToSlide(index);
-                return;
-            }
-            // Center image — open fullscreen modal
-            const images = items.map(i => i.querySelector('img').src);
-            openGalleryModal(images, currentIndex);
-        });
-    });
-
-    updateGallery();
-});
-
-// --- Gallery Modal with nav + thumbs ---
-function openGalleryModal(images, startIndex) {
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-image-view');
-    const counter = document.getElementById('image-modal-counter');
-    const thumbsContainer = document.getElementById('image-modal-thumbs');
-    const prevBtn = document.getElementById('image-modal-prev');
-    const nextBtn = document.getElementById('image-modal-next');
-    if (!modal || !modalImg) return;
-
-    let current = startIndex;
-
-    // Build thumbnails
-    thumbsContainer.innerHTML = '';
-    images.forEach((src, i) => {
-        const thumb = document.createElement('img');
-        thumb.src = src;
-        thumb.alt = `Thumbnail ${i + 1}`;
-        thumb.addEventListener('click', () => goTo(i));
-        thumbsContainer.appendChild(thumb);
-    });
-
-    function goTo(index) {
-        current = (index + images.length) % images.length;
-        modalImg.src = images[current];
-        counter.textContent = `${current + 1} / ${images.length}`;
-        thumbsContainer.querySelectorAll('img').forEach((t, i) => {
-            t.classList.toggle('active', i === current);
-        });
-    }
-
-    prevBtn.onclick = () => goTo(current - 1);
-    nextBtn.onclick = () => goTo(current + 1);
-
-    function handleKey(e) {
-        if (!modal.classList.contains('active')) return;
-        if (e.key === 'ArrowRight') goTo(current + 1);
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-    }
-    document.addEventListener('keydown', handleKey);
-
-    modal.addEventListener('click', function cleanup(e) {
-        if (e.target === modal) {
-            document.removeEventListener('keydown', handleKey);
-            modal.removeEventListener('click', cleanup);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
         }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateGallery();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            updateGallery();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updateGallery();
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!item.classList.contains('active')) {
+                    goToSlide(index);
+                    return;
+                }
+                const images = items.map(i => i.querySelector('img').src);
+                openGalleryModal(images, currentIndex);
+            });
+        });
+
+        updateGallery();
     });
 
-    goTo(current);
-    modal.classList.add('active');
-    document.body.classList.add('modal-open');
-}
+    // --- Gallery Modal with nav + thumbs ---
+    function openGalleryModal(images, startIndex) {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image-view');
+        const counter = document.getElementById('image-modal-counter');
+        const thumbsContainer = document.getElementById('image-modal-thumbs');
+        const prevBtn = document.getElementById('image-modal-prev');
+        const nextBtn = document.getElementById('image-modal-next');
+        if (!modal || !modalImg) return;
+
+        let current = startIndex;
+
+        thumbsContainer.innerHTML = '';
+        images.forEach((src, i) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.alt = `Thumbnail ${i + 1}`;
+            thumb.addEventListener('click', () => goTo(i));
+            thumbsContainer.appendChild(thumb);
+        });
+
+        function goTo(index) {
+            current = (index + images.length) % images.length;
+            modalImg.src = images[current];
+            counter.textContent = `${current + 1} / ${images.length}`;
+            thumbsContainer.querySelectorAll('img').forEach((t, i) => {
+                t.classList.toggle('active', i === current);
+            });
+        }
+
+        prevBtn.onclick = () => goTo(current - 1);
+        nextBtn.onclick = () => goTo(current + 1);
+
+        function handleKey(e) {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'ArrowRight') goTo(current + 1);
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+        }
+        document.addEventListener('keydown', handleKey);
+
+        modal.addEventListener('click', function cleanup(e) {
+            if (e.target === modal) {
+                document.removeEventListener('keydown', handleKey);
+                modal.removeEventserListener('click', cleanup);
+            }
+        });
+
+        goTo(current);
+        modal.classList.add('active');
+        document.body.classList.add('modal-open');
+    }
 
 });
