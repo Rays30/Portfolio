@@ -1779,3 +1779,21 @@ body.dark-mode .gallery-nav {
     .gallery-nav.prev { left: 10px; }
     .gallery-nav.next { right: 10px; }
 }
+
+/* =========================================
+   Project Image Clickable Trigger
+   ========================================= */
+.project-img-trigger {
+    cursor: pointer;
+    position: relative;
+}
+
+.project-img-trigger img {
+    pointer-events: none;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.project-img-trigger:hover img {
+    transform: scale(1.04);
+    filter: brightness(0.72);
+}

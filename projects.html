@@ -46,8 +46,8 @@
                     
                     <!-- Project 1: Laundry -->
                     <div class="project-card-horizontal" data-animation="fade-up" data-delay="100">
-                        <div class="project-img">
-                            <img src="assets/images/laundry-system.png" alt="Laundry Management System">
+                        <div class="project-img project-img-trigger" title="Click to preview image">
+                            <img src="assets/images/laundry-cover.png" alt="Laundry Management System">
                         </div>
                         <div class="project-content">
                             <span class="project-badge">Web & Mobile App</span>
@@ -73,8 +73,8 @@
 
                     <!-- Project 2: POS -->
                     <div class="project-card-horizontal" data-animation="fade-up" data-delay="200">
-                        <div class="project-img">
-                            <img src="assets/images/lifewood-pos1.png" alt="LW Mart Manager">
+                        <div class="project-img project-img-trigger" title="Click to preview image">
+                            <img src="assets/images/pos-cover.png" alt="LW Mart Manager">
                         </div>
                         <div class="project-content">
                             <span class="project-badge">Desktop Application</span>
@@ -100,8 +100,8 @@
 
                     <!-- Project 3: Posture AI -->
                     <div class="project-card-horizontal" data-animation="fade-up" data-delay="300">
-                        <div class="project-img">
-                            <img src="assets/images/posture-app.png" alt="Posture Detection App">
+                        <div class="project-img project-img-trigger" title="Click to preview image">
+                            <img src="assets/images/posture-cover.png" alt="Posture Detection App">
                         </div>
                         <div class="project-content">
                             <span class="project-badge">AI Desktop App</span>
@@ -178,6 +178,13 @@
     </footer>
 
 <!-- Scroll down to the bottom of projects.html and replace the bottom part with this: -->
+
+    <div id="image-modal" class="modal-overlay">
+        <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+        <div class="image-modal-content">
+            <img id="modal-image-view" src="" alt="Project Preview">
+        </div>
+    </div>
 
     <div id="video-modal" class="modal-overlay">
         <div class="video-modal-content">

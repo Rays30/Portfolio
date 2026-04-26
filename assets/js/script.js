@@ -131,6 +131,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
+        // Project image preview — clicking the image wrapper opens the modal
+        const projectImgTriggers = document.querySelectorAll('.project-img-trigger');
+        projectImgTriggers.forEach(wrapper => {
+            wrapper.addEventListener('click', () => {
+                const img = wrapper.querySelector('img');
+                if (img) openImageModal(img.src);
+            });
+        });
+
         imageModalClose.addEventListener('click', closeImageModal);
         imageModal.addEventListener('click', (e) => {
             if (e.target === imageModal) closeImageModal();
