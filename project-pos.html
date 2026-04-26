@@ -190,15 +190,16 @@
                 </ul>
             </div>
             <div class="footer-contact">
-                <h3>MESSAGE ME</h3>
-                <form class="contact-form">
-                    <div class="form-row">
-                        <input type="text" placeholder="Name" required>
-                        <input type="text" placeholder="Subject" required>
-                    </div>
-                    <textarea placeholder="Message" rows="3" required></textarea>
-                    <button type="submit" class="btn btn-light">Send Message</button>
-                </form>
+            <h3>MESSAGE ME</h3>
+            <form class="contact-form" id="contact-form">
+                <div class="form-row">
+                <input type="text" id="from_name" placeholder="Name" required>
+                <input type="text" id="subject" placeholder="Subject" required>
+                </div>
+                <textarea id="message" placeholder="Message" rows="3" required></textarea>
+                <button type="submit" class="btn btn-light" id="send-btn">Send Message</button>
+                <p id="form-status" style="margin-top: 8px; font-size: 0.85rem;"></p>
+            </form>
             </div>
         </div>
         <div class="footer-bottom">
@@ -247,5 +248,6 @@
     </div>
  
     <script type="module" src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </body>
 </html>

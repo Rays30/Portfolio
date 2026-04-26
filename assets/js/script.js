@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { firebaseConfig } from "./config.js";
+import { firebaseConfig, geminiApiKey } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const likeRef = doc(db, "portfolio", "likes");
         let hasLiked = localStorage.getItem('userHasLiked') === 'true';
 
-        // Load current count from Firestore
         try {
             const snap = await getDoc(likeRef);
             if (snap.exists()) {
@@ -156,7 +155,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error("Failed to load like count:", e);
         }
 
-        // Restore liked state for this user
         if (hasLiked) {
             likeButton.classList.add('liked');
             heartIcon.classList.replace('far', 'fas');
@@ -182,7 +180,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 localStorage.setItem('userHasLiked', hasLiked);
 
-                // Refresh count from Firestore
                 const updated = await getDoc(likeRef);
                 if (updated.exists()) {
                     likeCountDisplay.textContent = updated.data().count;
@@ -230,20 +227,117 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // --- 8. Floating Chat Widget Logic ---
+    // --- 8. Floating Chat Widget Logic + Gemini AI ---
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
-    const chatCloseBtn = document.getElementById('chat-close-btn');
-    const chatPanel = document.getElementById('chat-panel');
+    const chatCloseBtn  = document.getElementById('chat-close-btn');
+    const chatPanel     = document.getElementById('chat-panel');
+    const chatInput     = document.querySelector('.chat-input');
+    const chatSendBtn   = document.querySelector('.chat-send-btn');
+    const chatBody      = document.querySelector('.chat-body');
 
     if (chatToggleBtn && chatPanel && chatCloseBtn) {
-        chatToggleBtn.addEventListener('click', () => {
-            chatPanel.classList.toggle('active');
-        });
+        chatToggleBtn.addEventListener('click', () => chatPanel.classList.toggle('active'));
+        chatCloseBtn.addEventListener('click',  () => chatPanel.classList.remove('active'));
+    }
 
-        chatCloseBtn.addEventListener('click', () => {
-            chatPanel.classList.remove('active');
+    const SYSTEM_PROMPT = `You are a helpful assistant on Raysel Sabellano's portfolio website.
+Answer questions about Raysel naturally and concisely. Here are the facts:
+
+- Full name: Raysel Sabellano
+- Role: Junior Full-Stack Developer based in Cebu, Philippines
+- Skills: HTML, CSS, JavaScript, React, Flutter, Dart, Java, Python, PHP, MySQL, Node.js, Firebase, IndexedDB
+- Projects: Laundry Management System, Lifewood POS System, Posture Detection App, Minesweeper game
+- Contact: sabellanoraysel16@gmail.com | +639053446245
+- GitHub: github.com/Rays30 | LinkedIn: linkedin.com/in/raysel-sabellano-806959397
+- Quote: "Code. Learn. Build. Repeat."
+
+If asked something unrelated to Raysel or web development, politely redirect.
+Keep replies short — 2 to 4 sentences max.`;
+
+    function appendMessage(text, role) {
+        const div = document.createElement('div');
+        div.classList.add('chat-message', role === 'user' ? 'user-message' : 'bot-message');
+        div.innerHTML = `<p>${text}</p><span class="message-time">Just now</span>`;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function appendTyping() {
+        const div = document.createElement('div');
+        div.classList.add('chat-message', 'bot-message');
+        div.id = 'typing-indicator';
+        div.innerHTML = `<p style="color: var(--text-secondary); font-style: italic;">Typing...</p>`;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    async function sendToGemini(userMessage) {
+        appendTyping();
+
+        try {
+            // Using v1beta and gemini-2.0-flash (the model your new project supports)
+            const res = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        systemInstruction: {
+                            parts: [{ text: SYSTEM_PROMPT }]
+                        },
+                        contents: [
+                            { role: 'user', parts: [{ text: userMessage }] }
+                        ]
+                    })
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                console.error("Gemini API error:", data.error?.message || data);
+                document.getElementById('typing-indicator')?.remove();
+                appendMessage("Sorry, I couldn't get a response. Try again!", 'bot');
+                return;
+            }
+
+            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get a response. Try again!";
+            document.getElementById('typing-indicator')?.remove();
+            appendMessage(reply, 'bot');
+
+        } catch (err) {
+            console.error("Gemini fetch error:", err);
+            document.getElementById('typing-indicator')?.remove();
+            appendMessage("Something went wrong. Please try again!", 'bot');
+        }
+    }
+
+    let isSending = false;
+
+    function handleSend() {
+        if (isSending) return;
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+
+        isSending = true;
+        chatSendBtn.disabled = true;
+        chatInput.disabled = true;
+
+        appendMessage(msg, 'user');
+        chatInput.value = '';
+
+        sendToGemini(msg).finally(() => {
+            isSending = false;
+            chatSendBtn.disabled = false;
+            chatInput.disabled = false;
+            chatInput.focus();
         });
     }
+
+    chatSendBtn?.addEventListener('click', handleSend);
+    chatInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
 
     // --- 9. Global Escape Key Listener ---
     document.addEventListener('keydown', (e) => {
@@ -263,8 +357,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-// --- 10. 3D Project Gallery Logic (Standard) ---
-    // Skip if tabbed gallery is present (handled by Section 11)
+    // --- 10. 3D Project Gallery Logic (Standard) ---
     const hasTabbedGallery = document.querySelector('.gallery-tab');
 
     if (!hasTabbedGallery) {
@@ -385,8 +478,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         modal.addEventListener('click', function cleanup(e) {
             if (e.target === modal) {
-                document.removeEventListener('keydown', handleKey); // Fixed typo here
-                modal.removeEventListener('click', cleanup); // Fixed typo here
+                document.removeEventListener('keydown', handleKey);
+                modal.removeEventListener('click', cleanup);
             }
         });
 
@@ -456,7 +549,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             applyPositions();
         }
 
-        // Tab clicks
         galleryTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 galleryTabs.forEach(t => t.classList.remove('active'));
@@ -465,11 +557,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        // Nav buttons
         prevBtn.addEventListener('click', () => tabbedGoTo(currentIndex - 1));
         nextBtn.addEventListener('click', () => tabbedGoTo(currentIndex + 1));
 
-        // Keyboard (only when modal is closed)
         document.addEventListener('keydown', e => {
             const modal = document.getElementById('image-modal');
             if (modal && modal.classList.contains('active')) return;
@@ -477,7 +567,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (e.key === 'ArrowRight') tabbedGoTo(currentIndex + 1);
         });
 
-        // Click side items to navigate; click active to open modal
         allItems.forEach(item => {
             item.addEventListener('click', () => {
                 const items = getGroupItems();
@@ -494,8 +583,41 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        // Init
         switchGroup('customer');
     }
 
-}); // <-- Make sure this closing bracket matches the end of your DOMContentLoaded block
+    // --- 12. Contact Form (EmailJS) ---
+    const contactForm = document.getElementById("contact-form");
+    if (contactForm) {
+        emailjs.init("ah4oIE440AM0t21ja");
+
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const btn = document.getElementById("send-btn");
+            const status = document.getElementById("form-status");
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+            status.textContent = "";
+
+            emailjs.send("service_nj5oej8", "template_gvwk33q", {
+                from_name: document.getElementById("from_name").value,
+                subject:   document.getElementById("subject").value,
+                message:   document.getElementById("message").value,
+            })
+            .then(() => {
+                status.textContent = "✅ Message sent! I'll get back to you soon.";
+                status.style.color = "#C4956A";
+                contactForm.reset();
+            })
+            .catch(() => {
+                status.textContent = "❌ Something went wrong. Please try again.";
+                status.style.color = "#f87171";
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = "Send Message";
+            });
+        });
+    }
+
+}); // end DOMContentLoaded

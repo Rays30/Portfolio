@@ -873,18 +873,29 @@ body.dark-mode .switch-ball { transform: translateX(30px); }
 
 .chat-close-btn:hover { color: var(--text-primary); }
 
+/* =========================================
+   Chat Bubble Fix — paste at bottom of style.css
+   ========================================= */
+
 .chat-body {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    background-color: var(--bg-primary);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    padding: 14px;
+    overflow-y: auto;
+    flex: 1;
 }
 
-.chat-message { max-width: 85%; }
-.bot-message { align-self: flex-start; }
+.chat-message {
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bot bubble — left aligned */
+.bot-message {
+    align-self: flex-start;
+}
 
 .bot-message p {
     background-color: var(--bg-secondary);
@@ -892,16 +903,29 @@ body.dark-mode .switch-ball { transform: translateX(30px); }
     padding: 10px 14px;
     border-radius: 10px 10px 10px 3px;
     font-size: 0.87rem;
-    line-height: 1.5;
+    line-height: 1.55;
     border: 1px solid var(--border-color);
+    margin: 0;
 }
 
+/* User bubble — right aligned, dark */
+.user-message {
+    align-self: flex-end;
+}
+
+.user-message p {
+    background-color: var(--accent-dark);
+    color: var(--accent-light);
+    padding: 10px 14px;
+    border-radius: 10px 10px 3px 10px;
+    font-size: 0.87rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Hide timestamps for clean look */
 .message-time {
-    display: block;
-    font-size: 0.72rem;
-    color: var(--text-secondary);
-    margin-top: 4px;
-    margin-left: 3px;
+    display: none;
 }
 
 .chat-footer {
