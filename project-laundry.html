@@ -30,7 +30,6 @@
     <main>
         <section class="project-details-section">
             <div class="container">
-                <!-- NEW: Breadcrumb Row with Back Button across from it -->
                 <div class="breadcrumb-row" data-animation="fade-up">
                     <div class="breadcrumb">
                         <a href="index.html">Home</a> / <a href="projects.html">Projects</a> / <span>Laundry Management System</span>
@@ -56,31 +55,48 @@
                     </div>
                 </div>
 
+                <!-- NEW: Category Tabs -->
+                <div class="gallery-tabs" data-animation="fade-up" data-delay="150">
+                    <button class="gallery-tab active" data-group="customer"><i class="fas fa-mobile-alt"></i> Customer Screen</button>
+                    <button class="gallery-tab" data-group="rider"><i class="fas fa-motorcycle"></i> Rider Screen</button>
+                    <button class="gallery-tab coming-soon" data-group="admin" disabled title="Coming Soon"><i class="fas fa-desktop"></i> Admin Screen</button>
+                </div>
+
                 <!-- 3D Image Gallery -->
-<div class="project-gallery-container" data-animation="fade-up" data-delay="200">
-    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
-    
-    <div class="gallery-track">
-        <div class="gallery-item"><img src="assets/images/laundry-mobile1.png" alt="Gallery Image 1"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile2.png" alt="Gallery Image 2"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile3.png" alt="Gallery Image 3"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile4.png" alt="Gallery Image 4"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile5.png" alt="Gallery Image 5"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile6.png" alt="Gallery Image 6"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile7.png" alt="Gallery Image 7"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile8.png" alt="Gallery Image 8"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile9.png" alt="Gallery Image 9"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile10.png" alt="Gallery Image 10"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile11.png" alt="Gallery Image 11"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile12.png" alt="Gallery Image 12"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile13.png" alt="Gallery Image 13"></div>
-        <div class="gallery-item"><img src="assets/images/laundry-mobile14.png" alt="Gallery Image 14"></div>
-    </div>
+                <div class="project-gallery-container" data-animation="fade-up" data-delay="200">
+                    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
+                    
+                    <div class="gallery-track">
+                        <!-- Customer Screens (1-14) -->
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile1.png" alt="Gallery Image 1"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile2.png" alt="Gallery Image 2"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile3.png" alt="Gallery Image 3"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile4.png" alt="Gallery Image 4"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile5.png" alt="Gallery Image 5"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile6.png" alt="Gallery Image 6"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile7.png" alt="Gallery Image 7"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile8.png" alt="Gallery Image 8"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile9.png" alt="Gallery Image 9"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile10.png" alt="Gallery Image 10"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile11.png" alt="Gallery Image 11"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile12.png" alt="Gallery Image 12"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile13.png" alt="Gallery Image 13"></div>
+                        <div class="gallery-item" data-group="customer"><img src="assets/images/laundry-mobile14.png" alt="Gallery Image 14"></div>
+                        
+                        <!-- Rider Screens (15-21) -->
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile15.png" alt="Gallery Image 15"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile16.png" alt="Gallery Image 16"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile17.png" alt="Gallery Image 17"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile18.png" alt="Gallery Image 18"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile19.png" alt="Gallery Image 19"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile20.png" alt="Gallery Image 20"></div>
+                        <div class="gallery-item" data-group="rider"><img src="assets/images/laundry-mobile21.png" alt="Gallery Image 21"></div>
+                    </div>
 
-    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
-</div>
+                    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
+                </div>
 
-<div class="gallery-dots"></div>
+                <div class="gallery-dots"></div>
 
                 <div class="project-details-grid" data-animation="fade-up">
                     <div class="details-card overview-card">
@@ -104,7 +120,6 @@
                             <h3><i class="fas fa-code"></i> TECH STACK</h3>
                             <div class="tech-group">
                                 <span>Frontend</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fas fa-mobile-alt" style="color: #54C5F8;"></i> Flutter</span> 
                                     <span><i class="fas fa-code" style="color: #0175C2;"></i> Dart</span> 
@@ -115,7 +130,6 @@
                             </div>
                             <div class="tech-group">
                                 <span>Backend & Tools</span>
-                                <!-- Added Icons -->
                                 <div class="project-tags">
                                     <span><i class="fas fa-fire" style="color: #FFCA28;"></i> Firebase</span> 
                                     <span><i class="fas fa-map-marked-alt" style="color: #4285F4;"></i> Google Maps API</span>
@@ -188,7 +202,6 @@
                     <li><a href="index.html#certificates">Certificates</a></li>
                 </ul>
             </div>
-            <!-- Restored Message Box -->
             <div class="footer-contact">
                 <h3>MESSAGE ME</h3>
                 <form class="contact-form">
@@ -207,21 +220,18 @@
     </footer>
 
     <div id="image-modal" class="modal-overlay">
-    <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
-    <div class="image-modal-content">
-        <button class="image-modal-nav prev" id="image-modal-prev"><i class="fas fa-chevron-left"></i></button>
-        <img id="modal-image-view" src="" alt="Gallery Full View">
-        <button class="image-modal-nav next" id="image-modal-next"><i class="fas fa-chevron-right"></i></button>
-        <div class="image-modal-counter" id="image-modal-counter">1 / 5</div>
-        <div class="image-modal-thumbs" id="image-modal-thumbs"></div>
-    </div>
+        <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+        <div class="image-modal-content">
+            <button class="image-modal-nav prev" id="image-modal-prev"><i class="fas fa-chevron-left"></i></button>
+            <img id="modal-image-view" src="" alt="Gallery Full View">
+            <button class="image-modal-nav next" id="image-modal-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="image-modal-counter" id="image-modal-counter">1 / 5</div>
+            <div class="image-modal-thumbs" id="image-modal-thumbs"></div>
+        </div>
     </div>
 
-<!-- Chat Widget -->
     <div class="chat-widget">
-        <!-- Chat Panel -->
         <div class="chat-panel" id="chat-panel">
-            <!-- Header -->
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-avatar"><i class="fas fa-user-circle"></i></div>
@@ -232,23 +242,17 @@
                 </div>
                 <button class="chat-close-btn" id="chat-close-btn"><i class="fas fa-times"></i></button>
             </div>
-            
-            <!-- Body -->
             <div class="chat-body">
                 <div class="chat-message bot-message">
                     <p>Hi! 👋<br><br>Thanks for visiting my portfolio. You can ask me about my projects, skills, or experience.</p>
                     <span class="message-time">Just now</span>
                 </div>
             </div>
-            
-            <!-- Footer (Input) -->
             <div class="chat-footer">
                 <input type="text" placeholder="Type your message..." class="chat-input">
                 <button class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
-
-        <!-- Floating Toggle Button -->
         <button class="chat-button" id="chat-toggle-btn" aria-label="Open Chat">
             <i class="fas fa-comment-dots"></i>
         </button>

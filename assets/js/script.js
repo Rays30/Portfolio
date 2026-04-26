@@ -263,82 +263,87 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // --- 10. 3D Project Gallery Logic ---
-    const galleryContainers = document.querySelectorAll('.project-gallery-container');
+// --- 10. 3D Project Gallery Logic (Standard) ---
+    // Skip if tabbed gallery is present (handled by Section 11)
+    const hasTabbedGallery = document.querySelector('.gallery-tab');
 
-    galleryContainers.forEach(container => {
-        const track = container.querySelector('.gallery-track');
-        const items = Array.from(track.querySelectorAll('.gallery-item'));
-        const prevBtn = container.querySelector('.gallery-nav.prev');
-        const nextBtn = container.querySelector('.gallery-nav.next');
-        const dotsContainer = container.nextElementSibling;
+    if (!hasTabbedGallery) {
+        const galleryContainers = document.querySelectorAll('.project-gallery-container');
 
-        if (items.length === 0) return;
+        galleryContainers.forEach(container => {
+            const track = container.querySelector('.gallery-track');
+            const items = Array.from(track.querySelectorAll('.gallery-item'));
+            const prevBtn = container.querySelector('.gallery-nav.prev');
+            const nextBtn = container.querySelector('.gallery-nav.next');
+            const dotsContainer = container.nextElementSibling;
 
-        let currentIndex = 0;
+            if (items.length === 0) return;
 
-        items.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.classList.add('gallery-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
+            let currentIndex = 0;
 
-        const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
+            items.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('gallery-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
 
-        function updateGallery() {
+            const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
+
+            function updateGallery() {
+                items.forEach((item, index) => {
+                    item.className = 'gallery-item';
+                    let diff = index - currentIndex;
+                    if (diff < -Math.floor(items.length / 2)) diff += items.length;
+                    if (diff > Math.floor(items.length / 2)) diff -= items.length;
+
+                    if (diff === 0) item.classList.add('active');
+                    else if (diff === -1) item.classList.add('prev-1');
+                    else if (diff === 1) item.classList.add('next-1');
+                    else if (diff === -2) item.classList.add('prev-2');
+                    else if (diff === 2) item.classList.add('next-2');
+                });
+
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateGallery();
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateGallery();
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+                updateGallery();
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
             items.forEach((item, index) => {
-                item.className = 'gallery-item';
-                let diff = index - currentIndex;
-                if (diff < -Math.floor(items.length / 2)) diff += items.length;
-                if (diff > Math.floor(items.length / 2)) diff -= items.length;
-
-                if (diff === 0) item.classList.add('active');
-                else if (diff === -1) item.classList.add('prev-1');
-                else if (diff === 1) item.classList.add('next-1');
-                else if (diff === -2) item.classList.add('prev-2');
-                else if (diff === 2) item.classList.add('next-2');
+                item.addEventListener('click', () => {
+                    if (!item.classList.contains('active')) {
+                        goToSlide(index);
+                        return;
+                    }
+                    const images = items.map(i => i.querySelector('img').src);
+                    openGalleryModal(images, currentIndex);
+                });
             });
 
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
-
-        function goToSlide(index) {
-            currentIndex = index;
             updateGallery();
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % items.length;
-            updateGallery();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            updateGallery();
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-        items.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                if (!item.classList.contains('active')) {
-                    goToSlide(index);
-                    return;
-                }
-                const images = items.map(i => i.querySelector('img').src);
-                openGalleryModal(images, currentIndex);
-            });
         });
+    }
 
-        updateGallery();
-    });
-
-    // --- Gallery Modal with nav + thumbs ---
+    // --- Shared Gallery Modal with nav + thumbs ---
     function openGalleryModal(images, startIndex) {
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-image-view');
@@ -380,8 +385,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         modal.addEventListener('click', function cleanup(e) {
             if (e.target === modal) {
-                document.removeEventListener('keydown', handleKey);
-                modal.removeEventserListener('click', cleanup);
+                document.removeEventListener('keydown', handleKey); // Fixed typo here
+                modal.removeEventListener('click', cleanup); // Fixed typo here
             }
         });
 
@@ -390,4 +395,107 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.body.classList.add('modal-open');
     }
 
-});
+    // --- 11. Tabbed Gallery Logic (project-laundry.html) ---
+    const galleryTabs = document.querySelectorAll('.gallery-tab:not(.coming-soon)');
+
+    if (galleryTabs.length > 0) {
+        const allItems = document.querySelectorAll('.gallery-item');
+        const dotsContainer = document.querySelector('.gallery-dots');
+        const prevBtn = document.querySelector('.gallery-nav.prev');
+        const nextBtn = document.querySelector('.gallery-nav.next');
+
+        let currentGroup = 'customer';
+        let currentIndex = 0;
+
+        function getGroupItems() {
+            return [...allItems].filter(el => el.dataset.group === currentGroup);
+        }
+
+        function buildDots(items) {
+            dotsContainer.innerHTML = '';
+            items.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-dot' + (i === currentIndex ? ' active' : '');
+                dot.addEventListener('click', () => tabbedGoTo(i));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function updateDots() {
+            dotsContainer.querySelectorAll('.gallery-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function applyPositions() {
+            const items = getGroupItems();
+            allItems.forEach(el => { el.className = 'gallery-item'; });
+
+            const classes = ['prev-2', 'prev-1', 'active', 'next-1', 'next-2'];
+            const offsets = [-2, -1, 0, 1, 2];
+
+            offsets.forEach((offset, ci) => {
+                const idx = (currentIndex + offset + items.length) % items.length;
+                if (items[idx]) items[idx].className = 'gallery-item ' + classes[ci];
+            });
+
+            updateDots();
+        }
+
+        function tabbedGoTo(index) {
+            const items = getGroupItems();
+            currentIndex = (index + items.length) % items.length;
+            applyPositions();
+        }
+
+        function switchGroup(group) {
+            currentGroup = group;
+            currentIndex = 0;
+            const items = getGroupItems();
+            buildDots(items);
+            applyPositions();
+        }
+
+        // Tab clicks
+        galleryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                galleryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                switchGroup(tab.dataset.group);
+            });
+        });
+
+        // Nav buttons
+        prevBtn.addEventListener('click', () => tabbedGoTo(currentIndex - 1));
+        nextBtn.addEventListener('click', () => tabbedGoTo(currentIndex + 1));
+
+        // Keyboard (only when modal is closed)
+        document.addEventListener('keydown', e => {
+            const modal = document.getElementById('image-modal');
+            if (modal && modal.classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') tabbedGoTo(currentIndex - 1);
+            if (e.key === 'ArrowRight') tabbedGoTo(currentIndex + 1);
+        });
+
+        // Click side items to navigate; click active to open modal
+        allItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const items = getGroupItems();
+                const idx = items.indexOf(item);
+                if (idx === -1) return;
+
+                if (!item.classList.contains('active')) {
+                    tabbedGoTo(idx);
+                    return;
+                }
+
+                const images = items.map(i => i.querySelector('img').src);
+                openGalleryModal(images, currentIndex);
+            });
+        });
+
+        // Init
+        switchGroup('customer');
+    }
+
+}); // <-- Make sure this closing bracket matches the end of your DOMContentLoaded block
