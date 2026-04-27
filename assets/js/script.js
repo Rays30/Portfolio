@@ -629,4 +629,78 @@ Keep replies short — 2 to 4 sentences max.`;
         });
     }
 
-}); // end DOMContentLoaded
+
+// --- 13. Tech Stack Carousel — Infinite Single Item Loop ---
+    const techTrack = document.getElementById('tech-track');
+    const techPrev = document.getElementById('tech-prev');
+    const techNext = document.getElementById('tech-next');
+
+    if (techTrack && techPrev && techNext) {
+        let isAnimating = false;
+
+        // Calculate exactly how far to slide (1 column width + 1 gap)
+        function getShiftAmount() {
+            const column = techTrack.children[0];
+            const gap = parseFloat(getComputedStyle(techTrack).gap) || 24;
+            return column.offsetWidth + gap;
+        }
+
+        techNext.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const shift = getShiftAmount();
+            
+            // 1. Animate sliding to the left
+            techTrack.style.transition = 'transform 0.4s ease-in-out';
+            techTrack.style.transform = `translateX(-${shift}px)`;
+
+            // 2. When animation finishes, move the first item to the back
+            techTrack.addEventListener('transitionend', function handler() {
+                techTrack.removeEventListener('transitionend', handler);
+                
+                techTrack.style.transition = 'none'; // Turn off animation instantly
+                techTrack.appendChild(techTrack.firstElementChild); // Move DOM element
+                techTrack.style.transform = 'translateX(0)'; // Reset position
+                
+                // Force browser to register the reset before allowing next click
+                void techTrack.offsetWidth; 
+                isAnimating = false;
+            });
+        });
+
+        techPrev.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const shift = getShiftAmount();
+            
+            // 1. Instantly move the last item to the front and offset the track
+            techTrack.style.transition = 'none';
+            techTrack.prepend(techTrack.lastElementChild);
+            techTrack.style.transform = `translateX(-${shift}px)`;
+            
+            // Force browser to register the instant move
+            void techTrack.offsetWidth;
+
+            // 2. Animate sliding back to 0
+            techTrack.style.transition = 'transform 0.4s ease-in-out';
+            techTrack.style.transform = 'translateX(0)';
+
+            techTrack.addEventListener('transitionend', function handler() {
+                techTrack.removeEventListener('transitionend', handler);
+                isAnimating = false;
+            });
+        });
+
+        // Optional: Auto-slide every 4 seconds
+        let autoSlide = setInterval(() => techNext.click(), 4000);
+        
+        const wrapper = document.querySelector('.tech-carousel-wrapper');
+        wrapper.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        wrapper.addEventListener('mouseleave', () => {
+            autoSlide = setInterval(() => techNext.click(), 4000);
+        });
+    }
+
+}); // end DOMContentLoadeds
