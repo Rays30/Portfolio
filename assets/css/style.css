@@ -196,6 +196,19 @@ body.dark-mode .switch-ball { transform: translateX(30px); }
 .project-tags span { background-color: var(--bg-secondary); color: var(--text-secondary); font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 5px; }
 .project-actions { display: flex; gap: 8px; }
 .project-actions .btn { flex: 1; padding: 8px 0; }
+/* Image Hover Zoom & Trigger */
+.project-img {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ADD THESE TWO LINES HERE */
+.project-img-trigger { cursor: pointer; }
+.project-img-trigger img { pointer-events: none; }
+
+.project-img img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
 /* =========================================
    Certificates Section
