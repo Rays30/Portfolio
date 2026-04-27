@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="light-mode">
+    <div id="scroll-progress"></div>
+
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="nav-brand">RAYSEL SABELLANO</a>
@@ -79,15 +81,15 @@
                 </div>
                 <div class="gallery-dots"></div>
  
-                <div class="project-details-grid" data-animation="fade-up">
-                    <div class="details-card overview-card">
+                <div class="project-details-grid">
+                    <div class="details-card overview-card" data-animation="fade-left">
                         <h3>OVERVIEW</h3>
                         <h2>Project Overview</h2>
                         <p>LW Mart Manager is a fully offline desktop application built for LW Mini Mart to replace manual, paper-based store operations with a fast, reliable, and structured digital system. It combines a Point-of-Sale (POS) terminal, real-time inventory management, shift-based cashflow tracking, and detailed financial reporting — all in one integrated application that works without internet connectivity.</p>
                         <p class="mt-10">The system supports two user roles — Admin and Staff — each with tailored access and controls. Staff can process sales and manage their shift, while Admins gain full visibility over store performance, inventory health, and financial data. The application is powered by IndexedDB for local data persistence, ensuring data is always available and never dependent on a server.</p>
                     </div>
  
-                    <div class="details-card side-card">
+                    <div class="details-card side-card" data-animation="fade-right" data-delay="150">
                         <div class="side-section">
                             <h3><i class="far fa-user"></i> MY ROLE</h3>
                             <ul>
@@ -117,8 +119,8 @@
                     </div>
                 </div>
  
-                <div class="features-grid" data-animation="fade-up">
-                    <div class="details-card feature-box">
+                <div class="features-grid">
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="100">
                         <h3><i class="fas fa-star"></i> KEY FEATURES</h3>
                         <ul>
                             <li>POS with cart, barcode scanner (F2), product search (F4), and printable receipts</li>
@@ -135,13 +137,13 @@
                         </ul>
                     </div>
  
-                    <div class="details-card feature-box">
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="200">
                         <h3><i class="fas fa-bullseye"></i> PROBLEM &rarr; SOLUTION</h3>
                         <p><strong>Problem:</strong> The store relied on manual notebooks for tracking sales and inventory, leading to frequent stock errors, missing transaction records, and zero visibility into daily profits or losses.</p>
                         <p class="mt-10"><strong>Solution:</strong> Built a complete offline-first desktop system that automates sales processing, keeps inventory accurate in real time, logs every transaction, and generates detailed financial and inventory reports — replacing guesswork with data.</p>
                     </div>
  
-                    <div class="details-card feature-box">
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="300">
                         <h3><i class="fas fa-tools"></i> CHALLENGES</h3>
                         <ul>
                             <li>Designing complex business logic (shift tracking, predictive stock alerts, write-offs) entirely on the client side without a backend</li>

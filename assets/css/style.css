@@ -93,8 +93,9 @@ ul { list-style: none; }
    ========================================= */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%;
-    background-color: var(--nav-bg); border-bottom: 1px solid var(--border-color);
-    z-index: 1000; backdrop-filter: blur(8px);
+    background-color: transparent; border-bottom: 1px solid transparent;
+    z-index: 1000; backdrop-filter: blur(0px);
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-bottom-color 0.4s ease, box-shadow 0.4s ease;
 }
 .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
 .nav-brand { font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; letter-spacing: 0.02em; color: var(--text-primary); }
@@ -172,51 +173,13 @@ body.dark-mode .switch-ball { transform: translateX(30px); }
 /* =========================================
    Tech Stack Section
    ========================================= */
-.tech-stack-section {
-    padding: 60px 0;
-    background-color: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-}
-
-/* Global tech-pill — used on project detail pages too */
-.tech-pill {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    padding: 5px 14px;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    font-weight: 400;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    color: var(--text-primary);
-    white-space: nowrap;
-}
+.tech-stack-section { padding: 60px 0; background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
+.tech-pill { background-color: var(--bg-primary); border: 1px solid var(--border-color); padding: 5px 14px; border-radius: 6px; font-size: 0.82rem; font-weight: 400; display: inline-flex; align-items: center; gap: 7px; transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease; color: var(--text-primary); white-space: nowrap; }
 .tech-pill:hover { transform: translateY(-2px); border-color: var(--accent-brown); color: var(--accent-brown); }
 .tech-pill i { font-size: 1rem; }
-
-.pill-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: flex-start; /* 🔥 important */
-}
-
-/* Global tech-column h3 — used on project detail pages */
-.tech-column h3 {
-    font-size: 0.72rem; font-weight: 500; margin-bottom: 16px;
-    display: flex; align-items: center; gap: 8px;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-brown);
-}
-
-.tech-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 12px;
-    min-height: 120px; /* 🔥 key fix */
-}
+.pill-container { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+.tech-column h3 { font-size: 0.72rem; font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-brown); }
+.tech-column { display: flex; flex-direction: column; justify-content: flex-start; gap: 12px; min-height: 120px; }
 
 /* =========================================
    Projects Section
@@ -224,7 +187,6 @@ body.dark-mode .switch-ball { transform: translateX(30px); }
 .projects-section { padding: 60px 0; }
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
 .project-card { background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, border-color 0.2s ease; }
-.project-card:hover { transform: translateY(-4px); border-color: var(--accent-brown); }
 .project-img { height: 180px; background-color: var(--bg-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--border-color); }
 .project-img img { width: 100%; height: 100%; object-fit: cover; }
 .project-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -338,6 +300,9 @@ body.modal-open .chat-widget { opacity: 0; visibility: hidden; pointer-events: n
 [data-animation="fade-up"] { transform: translateY(30px); }
 [data-animation="scale-in"] { transform: scale(0.95); }
 [data-animation="slide-in-right"] { transform: translateX(30px); }
+[data-animation="fade-left"] { transform: translateX(-40px); opacity: 0; }
+[data-animation="fade-right"] { transform: translateX(40px); opacity: 0; }
+[data-animation="fade-left"].is-visible, [data-animation="fade-right"].is-visible { transform: translateX(0); opacity: 1; }
 
 /* =========================================
    Responsive Design
@@ -387,7 +352,6 @@ body.modal-open .chat-widget { opacity: 0; visibility: hidden; pointer-events: n
 .projects-list { display: flex; flex-direction: column; gap: 32px; margin-top: 50px; }
 
 .project-card-horizontal { display: grid; grid-template-columns: 450px 1fr; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: transform 0.2s ease, border-color 0.2s ease; }
-.project-card-horizontal:hover { transform: translateY(-4px); border-color: var(--accent-brown); }
 .project-card-horizontal .project-img { height: 100%; min-height: 280px; background-color: var(--bg-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden; border-right: 1px solid var(--border-color); }
 .project-card-horizontal .project-img img { width: 100%; height: 100%; object-fit: cover; }
 .project-card-horizontal .project-content { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
@@ -490,75 +454,146 @@ body.dark-mode .gallery-nav { background: rgba(242, 237, 228, 0.08); border-colo
 }
 
 /* =========================================
-   Tech Stack Carousel — Infinite Single Item Loop
+   Tech Stack Carousel
    ========================================= */
 .tech-carousel-wrapper { display: flex; align-items: center; gap: 16px; }
 .tech-carousel-viewport { overflow: hidden; flex: 1; padding: 10px 0; }
-.tech-carousel-track { 
-    display: flex; 
-    gap: 24px; 
-    /* Transition is handled by JS for the infinite loop trick */
-}
-
-/* Premium Card Look for Columns */
-.tech-column {
-    /* Math: (100% - total gap space) / number of items */
-    /* 3 items = 2 gaps of 24px = 48px total gap */
-    flex: 0 0 calc((100% - 48px) / 3); 
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    padding: 24px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    box-shadow: var(--shadow-sm);
-    box-sizing: border-box;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.tech-column:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent-brown);
-}
-
-.tech-column h3 {
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-bottom: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-brown);
-}
-
-.tech-column .pill-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-    align-items: flex-start;
-}
-
-/* Nav buttons */
-.tech-carousel-btn {
-    width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
-    border: 1px solid var(--border-color); background-color: var(--bg-primary);
-    color: var(--text-primary); font-size: 1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease; box-shadow: var(--shadow-sm);
-}
+.tech-carousel-track { display: flex; gap: 24px; }
+.tech-column { flex: 0 0 calc((100% - 48px) / 3); background-color: var(--bg-primary); border: 1px solid var(--border-color); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm); box-sizing: border-box; transition: transform 0.2s ease, border-color 0.2s ease; }
+.tech-column:hover { transform: translateY(-4px); border-color: var(--accent-brown); }
+.tech-column h3 { font-size: 0.75rem; font-weight: 600; margin-bottom: 0; display: flex; align-items: center; gap: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-brown); }
+.tech-column .pill-container { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; align-items: flex-start; }
+.tech-carousel-btn { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; box-shadow: var(--shadow-sm); }
 .tech-carousel-btn:hover { border-color: var(--accent-brown); color: var(--accent-brown); transform: scale(1.05); }
 .tech-carousel-btn:active { transform: scale(0.95); }
 
-/* Responsive Adjustments */
 @media (max-width: 1024px) {
-    /* 2 items = 1 gap of 24px */
     .tech-column { flex: 0 0 calc((100% - 24px) / 2); }
 }
 @media (max-width: 640px) {
-    /* 1 item = 0 gaps */
     .tech-column { flex: 0 0 100%; }
+}
+
+/* =========================================
+   UI Enhancements & Micro-Interactions
+   ========================================= */
+
+/* Smooth Scroll & Subtle Gradient Background */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-image: radial-gradient(circle at top right, rgba(139, 111, 71, 0.04), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(139, 111, 71, 0.04), transparent 40%);
+    background-attachment: fixed;
+}
+body.dark-mode {
+    background-image: radial-gradient(circle at top right, rgba(196, 149, 106, 0.06), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(196, 149, 106, 0.06), transparent 40%);
+}
+
+/* Global Scroll Progress Bar */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-brown), #d4af37);
+    z-index: 10000;
+    transition: width 0.15s ease-out;
+    pointer-events: none;
+}
+
+/* Navbar Dynamic Scrolled State */
+.navbar.scrolled {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Button Sweep & Scale Effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+.btn:hover::after {
+    left: 100%;
+}
+.btn:hover:not(.btn-disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Project Cards Hover Lift & Shadow */
+.project-card, .project-card-horizontal {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.project-card:hover, .project-card-horizontal:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Image Hover Zoom */
+.project-img {
+    position: relative;
+    overflow: hidden;
+}
+.project-img img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.project-card:hover .project-img img,
+.project-card-horizontal:hover .project-img img {
+    transform: scale(1.08);
+}
+
+/* Image Overlay System */
+.project-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(28, 25, 23, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+    backdrop-filter: blur(2px);
+}
+.project-card:hover .project-overlay,
+.project-card-horizontal:hover .project-overlay {
+    opacity: 1;
+}
+.project-overlay-content {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+.project-card:hover .project-overlay-content,
+.project-card-horizontal:hover .project-overlay-content {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.1s; 
+}
+
+/* Detail Pages Hover Cards */
+.details-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.details-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }

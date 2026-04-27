@@ -17,6 +17,8 @@
     </style>
 </head>
 <body class="light-mode">
+    <div id="scroll-progress"></div>
+
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html#home" class="nav-brand">RAYSEL SABELLANO</a>
@@ -105,7 +107,7 @@
             </div>
         </section>
 
-<!-- TECH STACK SECTION -->
+        <!-- TECH STACK SECTION -->
         <section id="tech-stack" class="tech-stack-section">
             <div class="container">
                 <div class="section-header" data-animation="fade-up">
@@ -118,7 +120,6 @@
 
                     <div class="tech-carousel-viewport">
                         <div class="tech-carousel-track" id="tech-track">
-
                             <!-- Column 1 -->
                             <div class="tech-column">
                                 <h3><i class="fas fa-laptop-code"></i> FRONTEND</h3>
@@ -183,7 +184,6 @@
                                     <span class="tech-pill"><i class="fas fa-brain" style="color:#FF6F00;"></i> Teachable Machine</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@
         </section>
 
 
-        <!-- FEATURED PROJECTS SECTION (UPDATED) -->
+        <!-- FEATURED PROJECTS SECTION -->
         <section id="projects" class="projects-section">
             <div class="container">
                 <div class="section-header flex-between" data-animation="fade-up">
@@ -209,6 +209,11 @@
                     <div class="project-card" data-animation="fade-up" data-delay="100">
                         <div class="project-img project-img-trigger" title="Click to preview image">
                             <img src="assets/images/laundry-cover.png" alt="Laundry Management System">
+                            <div class="project-overlay">
+                                <div class="project-overlay-content">
+                                    <span class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.5);"><i class="fas fa-search-plus"></i> View Preview</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-content">
                             <h3>Laundry Management System</h3>
@@ -230,6 +235,11 @@
                     <div class="project-card" data-animation="fade-up" data-delay="200">
                         <div class="project-img project-img-trigger" title="Click to preview image">
                             <img src="assets/images/pos-cover.png" alt="LW Mart Manager">
+                            <div class="project-overlay">
+                                <div class="project-overlay-content">
+                                    <span class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.5);"><i class="fas fa-search-plus"></i> View Preview</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-content">
                             <h3>LW Mart Manager (POS)</h3>
@@ -251,6 +261,11 @@
                     <div class="project-card" data-animation="fade-up" data-delay="300">
                         <div class="project-img project-img-trigger" title="Click to preview image">
                             <img src="assets/images/posture-cover.png" alt="Posture Detection App">
+                            <div class="project-overlay">
+                                <div class="project-overlay-content">
+                                    <span class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.5);"><i class="fas fa-search-plus"></i> View Preview</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-content">
                             <h3>Posture Detection App (AI)</h3>
@@ -359,7 +374,7 @@
     </div>
     </div>
 
-<!-- Chat Widget -->
+    <!-- Chat Widget -->
     <div class="chat-widget">
         <!-- Chat Panel -->
         <div class="chat-panel" id="chat-panel">

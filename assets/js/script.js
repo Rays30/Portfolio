@@ -131,7 +131,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        // Project image preview — clicking the image wrapper opens the modal
         const projectImgTriggers = document.querySelectorAll('.project-img-trigger');
         projectImgTriggers.forEach(wrapper => {
             wrapper.addEventListener('click', () => {
@@ -284,7 +283,6 @@ Keep replies short — 2 to 4 sentences max.`;
         appendTyping();
 
         try {
-            // Using v1beta and gemini-2.0-flash (the model your new project supports)
             const res = await fetch(
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
                 {
@@ -366,7 +364,7 @@ Keep replies short — 2 to 4 sentences max.`;
         }
     });
 
-    // --- 10. 3D Project Gallery Logic (Standard) ---
+    // --- 10. 3D Project Gallery Logic ---
     const hasTabbedGallery = document.querySelector('.gallery-tab');
 
     if (!hasTabbedGallery) {
@@ -445,7 +443,7 @@ Keep replies short — 2 to 4 sentences max.`;
         });
     }
 
-    // --- Shared Gallery Modal with nav + thumbs ---
+    // --- Shared Gallery Modal ---
     function openGalleryModal(images, startIndex) {
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-image-view');
@@ -497,10 +495,9 @@ Keep replies short — 2 to 4 sentences max.`;
         document.body.classList.add('modal-open');
     }
 
-    // --- 11. Tabbed Gallery Logic (project-laundry.html) ---
-    const galleryTabs = document.querySelectorAll('.gallery-tab:not(.coming-soon)');
-
-    if (galleryTabs.length > 0) {
+    // --- 11. Tabbed Gallery Logic ---
+    if (hasTabbedGallery) {
+        const tabNodes = document.querySelectorAll('.gallery-tab:not(.coming-soon)');
         const allItems = document.querySelectorAll('.gallery-item');
         const dotsContainer = document.querySelector('.gallery-dots');
         const prevBtn = document.querySelector('.gallery-nav.prev');
@@ -558,16 +555,16 @@ Keep replies short — 2 to 4 sentences max.`;
             applyPositions();
         }
 
-        galleryTabs.forEach(tab => {
+        tabNodes.forEach(tab => {
             tab.addEventListener('click', () => {
-                galleryTabs.forEach(t => t.classList.remove('active'));
+                tabNodes.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 switchGroup(tab.dataset.group);
             });
         });
 
-        prevBtn.addEventListener('click', () => tabbedGoTo(currentIndex - 1));
-        nextBtn.addEventListener('click', () => tabbedGoTo(currentIndex + 1));
+        if (prevBtn) prevBtn.addEventListener('click', () => tabbedGoTo(currentIndex - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => tabbedGoTo(currentIndex + 1));
 
         document.addEventListener('keydown', e => {
             const modal = document.getElementById('image-modal');
@@ -595,7 +592,7 @@ Keep replies short — 2 to 4 sentences max.`;
         switchGroup('customer');
     }
 
-    // --- 12. Contact Form (EmailJS) ---
+    // --- 12. Contact Form ---
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
         emailjs.init("ah4oIE440AM0t21ja");
@@ -629,8 +626,7 @@ Keep replies short — 2 to 4 sentences max.`;
         });
     }
 
-
-// --- 13. Tech Stack Carousel — Infinite Single Item Loop ---
+    // --- 13. Tech Stack Carousel ---
     const techTrack = document.getElementById('tech-track');
     const techPrev = document.getElementById('tech-prev');
     const techNext = document.getElementById('tech-next');
@@ -638,7 +634,6 @@ Keep replies short — 2 to 4 sentences max.`;
     if (techTrack && techPrev && techNext) {
         let isAnimating = false;
 
-        // Calculate exactly how far to slide (1 column width + 1 gap)
         function getShiftAmount() {
             const column = techTrack.children[0];
             const gap = parseFloat(getComputedStyle(techTrack).gap) || 24;
@@ -651,19 +646,16 @@ Keep replies short — 2 to 4 sentences max.`;
 
             const shift = getShiftAmount();
             
-            // 1. Animate sliding to the left
             techTrack.style.transition = 'transform 0.4s ease-in-out';
             techTrack.style.transform = `translateX(-${shift}px)`;
 
-            // 2. When animation finishes, move the first item to the back
             techTrack.addEventListener('transitionend', function handler() {
                 techTrack.removeEventListener('transitionend', handler);
                 
-                techTrack.style.transition = 'none'; // Turn off animation instantly
-                techTrack.appendChild(techTrack.firstElementChild); // Move DOM element
-                techTrack.style.transform = 'translateX(0)'; // Reset position
+                techTrack.style.transition = 'none'; 
+                techTrack.appendChild(techTrack.firstElementChild); 
+                techTrack.style.transform = 'translateX(0)'; 
                 
-                // Force browser to register the reset before allowing next click
                 void techTrack.offsetWidth; 
                 isAnimating = false;
             });
@@ -675,15 +667,12 @@ Keep replies short — 2 to 4 sentences max.`;
 
             const shift = getShiftAmount();
             
-            // 1. Instantly move the last item to the front and offset the track
             techTrack.style.transition = 'none';
             techTrack.prepend(techTrack.lastElementChild);
             techTrack.style.transform = `translateX(-${shift}px)`;
             
-            // Force browser to register the instant move
             void techTrack.offsetWidth;
 
-            // 2. Animate sliding back to 0
             techTrack.style.transition = 'transform 0.4s ease-in-out';
             techTrack.style.transform = 'translateX(0)';
 
@@ -693,7 +682,6 @@ Keep replies short — 2 to 4 sentences max.`;
             });
         });
 
-        // Optional: Auto-slide every 4 seconds
         let autoSlide = setInterval(() => techNext.click(), 4000);
         
         const wrapper = document.querySelector('.tech-carousel-wrapper');
@@ -703,4 +691,28 @@ Keep replies short — 2 to 4 sentences max.`;
         });
     }
 
-}); // end DOMContentLoadeds
+    // --- 14. Navbar Scroll State & Global Scroll Progress Bar ---
+    const navbar = document.querySelector('.navbar');
+    const progressBar = document.getElementById('scroll-progress');
+
+    function handleScroll() {
+        if (navbar) {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        if (progressBar) {
+            const totalScroll = document.documentElement.scrollTop;
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scroll = `${(totalScroll / windowHeight) * 100}%`;
+            progressBar.style.width = scroll;
+        }
+    }
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); 
+
+}); // end DOMContentLoaded
