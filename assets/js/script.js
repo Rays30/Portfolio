@@ -716,69 +716,87 @@ Keep replies short — 2 to 4 sentences max.`;
     handleScroll(); 
 
 // --- 15. Projects Pagination ---
-const projectsList = document.querySelector('.projects-list');
-const paginationContainer = document.querySelector('.pagination');
+    const projectsList = document.querySelector('.projects-list');
+    const paginationContainer = document.querySelector('.pagination');
 
-if (projectsList && paginationContainer) {
-    const allCards = Array.from(projectsList.querySelectorAll('.project-card-horizontal'));
-    const cardsPerPage = 3;
-    let currentPage = 1;
-    const totalPages = Math.ceil(allCards.length / cardsPerPage);
+    if (projectsList && paginationContainer) {
+        const allCards = Array.from(projectsList.querySelectorAll('.project-card-horizontal'));
+        const cardsPerPage = 3;
+        let currentPage = 1;
+        const totalPages = Math.ceil(allCards.length / cardsPerPage);
 
-    const prevBtn = paginationContainer.querySelectorAll('.page-btn')[0];
-    const nextBtn = paginationContainer.querySelectorAll('.page-btn')[2];
+        const prevBtn = paginationContainer.querySelectorAll('.page-btn')[0];
+        const nextBtn = paginationContainer.querySelectorAll('.page-btn')[2];
 
-    // Remove the static page number button and build dynamic ones
-    const staticPageBtn = paginationContainer.querySelectorAll('.page-btn')[1];
-    staticPageBtn.remove();
+        const staticPageBtn = paginationContainer.querySelectorAll('.page-btn')[1];
+        staticPageBtn.remove();
 
-    // Build a numbered button for each page
-    for (let i = totalPages; i >= 1; i--) {
-        const btn = document.createElement('button');
-        btn.classList.add('page-btn');
-        btn.textContent = i;
-        btn.dataset.page = i;
-        prevBtn.insertAdjacentElement('afterend', btn);
-    }
+        for (let i = totalPages; i >= 1; i--) {
+            const btn = document.createElement('button');
+            btn.classList.add('page-btn');
+            btn.textContent = i;
+            btn.dataset.page = i;
+            prevBtn.insertAdjacentElement('afterend', btn);
+        }
 
-    function getPageBtns() {
-        return Array.from(paginationContainer.querySelectorAll('.page-btn[data-page]'));
-    }
+        function getPageBtns() {
+            return Array.from(paginationContainer.querySelectorAll('.page-btn[data-page]'));
+        }
 
-    function showPage(page) {
-        allCards.forEach((card, index) => {
-            const start = (page - 1) * cardsPerPage;
-            const end = start + cardsPerPage;
-            card.style.display = (index >= start && index < end) ? '' : 'none';
-        });
+        function showPage(page, scrollTop = true) {
+            allCards.forEach((card, index) => {
+                const start = (page - 1) * cardsPerPage;
+                const end = start + cardsPerPage;
+                card.style.display = (index >= start && index < end) ? '' : 'none';
+            });
 
-        currentPage = page;
+            currentPage = page;
+
+            getPageBtns().forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.page) === currentPage);
+            });
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
+            nextBtn.style.opacity = currentPage === totalPages ? '0.4' : '1';
+
+            sessionStorage.setItem('projectsPage', page);
+
+            if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         getPageBtns().forEach(btn => {
-            btn.classList.toggle('active', parseInt(btn.dataset.page) === currentPage);
+            btn.addEventListener('click', () => showPage(parseInt(btn.dataset.page), true));
         });
 
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages;
-        prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
-        nextBtn.style.opacity = currentPage === totalPages ? '0.4' : '1';
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) showPage(currentPage - 1, true);
+        });
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) showPage(currentPage + 1, true);
+        });
+
+        // Save scroll position before leaving to a detail page
+        document.querySelectorAll('.project-card-horizontal .btn-outline[href$=".html"]').forEach(link => {
+            link.addEventListener('click', () => {
+                sessionStorage.setItem('projectsScrollY', window.scrollY);
+            });
+        });
+
+        // Restore page and scroll position when coming back
+        const savedPage = parseInt(sessionStorage.getItem('projectsPage')) || 1;
+        const savedScrollY = parseInt(sessionStorage.getItem('projectsScrollY')) || 0;
+
+        showPage(savedPage, false);
+
+        if (savedScrollY > 0) {
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: savedScrollY, behavior: 'instant' });
+                sessionStorage.removeItem('projectsScrollY');
+            });
+        }
     }
-
-    getPageBtns().forEach(btn => {
-        btn.addEventListener('click', () => showPage(parseInt(btn.dataset.page)));
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) showPage(currentPage - 1);
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages) showPage(currentPage + 1);
-    });
-
-    showPage(1);
-}
 
 }); // end DOMContentLoaded
