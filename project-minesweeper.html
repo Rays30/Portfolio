@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper React + Firebase - Raysel Sabellano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="light-mode">
+    <div id="scroll-progress"></div>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">RAYSEL SABELLANO</a>
+            <button class="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#tech-stack">Skills</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="index.html#certificates">Certificates</a></li>
+            </ul>
+            <div class="theme-switch" id="theme-toggle">
+                <i class="fas fa-moon"></i><div class="switch-ball"></div><i class="fas fa-sun"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="project-details-section">
+            <div class="container">
+                <div class="breadcrumb-row" data-animation="fade-up">
+                    <div class="breadcrumb">
+                        <a href="index.html">Home</a> / <a href="projects.html">Projects</a> / <span>Minesweeper React + Firebase</span>
+                    </div>
+                    <a href="projects.html" class="btn btn-outline btn-sm"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                </div>
+
+                <div class="project-header-top" data-animation="fade-up" data-delay="100">
+                    <div class="project-title-area">
+                        <span class="project-badge">Web Game</span>
+                        <h1>Minesweeper</h1>
+
+                        <div class="project-actions row-actions mt-20">
+                            <a href="https://minesweeper-react-firebase.vercel.app/" target="_blank" class="btn btn-dark"><i class="fas fa-gamepad"></i> Play Now</a>
+                            <a href="https://github.com/Rays30/minesweeper-react-firebase" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-meta-box">
+                        <div class="meta-item"><i class="far fa-calendar-alt"></i><div class="meta-info"><span>Year</span><strong>2025</strong></div></div>
+                        <div class="meta-item"><i class="far fa-folder-open"></i><div class="meta-info"><span>Type</span><strong>Web Game with Backend</strong></div></div>
+                        <div class="meta-item"><i class="far fa-clock"></i><div class="meta-info"><span>Duration</span><strong>Personal Project</strong></div></div>
+                    </div>
+                </div>
+
+                <!-- 3D Image Gallery -->
+                <div class="project-gallery-container" data-animation="fade-up" data-delay="200">
+                    <button class="gallery-nav prev" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button>
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="assets/images/minesweeper-1.png" alt="Gallery Image 1"></div>
+                        <div class="gallery-item"><img src="assets/images/minesweeper-2.png" alt="Gallery Image 2"></div>
+                        <div class="gallery-item"><img src="assets/images/minesweeper-3.png" alt="Gallery Image 3"></div>
+                        <div class="gallery-item"><img src="assets/images/minesweeper-4.png" alt="Gallery Image 4"></div>
+                        <div class="gallery-item"><img src="assets/images/minesweeper-5.png" alt="Gallery Image 5"></div>
+                    </div>
+                    <button class="gallery-nav next" aria-label="Next image"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="gallery-dots"></div>
+
+                <div class="project-details-grid">
+                    <div class="details-card overview-card" data-animation="fade-left">
+                        <h3>OVERVIEW</h3>
+                        <h2>Project Overview</h2>
+                        <p>Minesweeper React + Firebase is a modern web reimagining of the classic Minesweeper game — rebuilt from scratch using React and backed by Firebase for real-time leaderboard persistence and user authentication. The project goes beyond a straight clone: it introduces custom gameplay mechanics, a unique visual flavor, and backend features that make the experience feel fresh and replayable.</p>
+                        <p class="mt-10">Players can create accounts, compete on a global leaderboard ranked by fastest completion times, and experience signature twists like a guaranteed safe first click, a second-chance life system, and dynamic difficulty scaling tied to player performance. The app is fully responsive, playable on both desktop and mobile browsers.</p>
+                    </div>
+
+                    <div class="details-card side-card" data-animation="fade-right" data-delay="150">
+                        <div class="side-section">
+                            <h3><i class="far fa-user"></i> MY ROLE</h3>
+                            <ul>
+                                <li>Solo Developer</li>
+                                <li>UI/UX Designer</li>
+                                <li>Firebase Integration & Auth Setup</li>
+                            </ul>
+                        </div>
+
+                        <div class="side-section mt-30">
+                            <h3><i class="fas fa-code"></i> TECH STACK</h3>
+                            <div class="tech-group">
+                                <span>Frontend</span>
+                                <div class="project-tags">
+                                    <span><i class="fab fa-react" style="color: #61DAFB;"></i> React</span>
+                                    <span><i class="fab fa-css3-alt" style="color: #38BDF8;"></i> Tailwind CSS</span>
+                                </div>
+                            </div>
+                            <div class="tech-group">
+                                <span>Backend & Tools</span>
+                                <div class="project-tags">
+                                    <span><i class="fas fa-fire" style="color: #FFCA28;"></i> Firebase Auth</span>
+                                    <span><i class="fas fa-database" style="color: #4B5563;"></i> Firestore</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="100">
+                        <h3><i class="fas fa-star"></i> KEY FEATURES</h3>
+                        <ul>
+                            <li>Classic Minesweeper gameplay — reveal safe tiles, flag mines, win or lose</li>
+                            <li>Safe First Click — the first tile clicked is guaranteed mine-free</li>
+                            <li>Second Chance Mode — players get one extra life before the game ends</li>
+                            <li>Dynamic Difficulty — mine count scales with player performance over time</li>
+                            <li>Firebase Leaderboard — top scores saved to Firestore and displayed in real time</li>
+                            <li>User Accounts — sign in with Firebase Auth to track personal records</li>
+                            <li>Color-coded number tiles for improved readability and visual clarity</li>
+                            <li>Toast notifications for win, lose, and personal best events</li>
+                            <li>Sound effects for tile clicks, flagging, and explosions (toggleable)</li>
+                            <li>Animated cell reveals and smooth game state transitions</li>
+                            <li>Fully responsive — playable on desktop and mobile browsers</li>
+                        </ul>
+                    </div>
+
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="200">
+                        <h3><i class="fas fa-bullseye"></i> PROBLEM &rarr; SOLUTION</h3>
+                        <p><strong>Problem:</strong> Classic Minesweeper has no backend — scores disappear on refresh, there's no competition layer, and the infamous unfair first-click mine can end a game before it even starts.</p>
+                        <p class="mt-10"><strong>Solution:</strong> Rebuilt the game with React for a reactive component-driven board, added Firebase Auth and Firestore to persist scores and power a live leaderboard, and introduced custom mechanics — safe first click, second chance lives, and dynamic difficulty — to make each game fairer and more engaging.</p>
+                    </div>
+
+                    <div class="details-card feature-box" data-animation="fade-up" data-delay="300">
+                        <h3><i class="fas fa-tools"></i> CHALLENGES</h3>
+                        <ul>
+                            <li>Implementing safe first-click — mines must be placed after the first click resolves, requiring a two-phase board generation approach</li>
+                            <li>Designing dynamic difficulty that feels fair, not punishing — calibrating how aggressively mine count scales with win streaks</li>
+                            <li>Real-time leaderboard with Firestore — handling concurrent writes and ordering scores correctly without duplicates</li>
+                            <li>Making the game fully playable on mobile with touch events on a grid layout originally designed for mouse interaction</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="details-card full-width-card" data-animation="fade-up">
+                    <h3><i class="far fa-lightbulb"></i> LEARNINGS</h3>
+                    <ul>
+                        <li>Deep React state management — modeling a 2D game board entirely in useState with efficient re-renders</li>
+                        <li>Firebase Firestore real-time listeners and security rules for leaderboard integrity</li>
+                        <li>Game design fundamentals — balancing fairness, tension, and replayability in a probability-based game</li>
+                        <li>How auth and persistent data changes the entire user experience of even a simple game</li>
+                        <li>Responsive game UI — adapting grid-based interfaces across screen sizes without breaking game logic</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h2>Raysel Sabellano</h2>
+                <p><i>"Code. Learn. Build. Repeat."</i></p>
+                <div class="contact-icons footer-contacts">
+                    <a href="tel:+639053446245"><i class="fas fa-phone flip-horizontal"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/639053446245" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/Rays30" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/raysel-sabellano-806959397" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>QUICK LINKS</h3>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#tech-stack">Skills</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="index.html#certificates">Certificates</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>MESSAGE ME</h3>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-row">
+                        <input type="text" id="from_name" placeholder="Name" required>
+                        <input type="text" id="subject" placeholder="Subject" required>
+                    </div>
+                    <textarea id="message" placeholder="Message" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-light" id="send-btn">Send Message</button>
+                    <p id="form-status" style="margin-top: 8px; font-size: 0.85rem;"></p>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Raysel Sabellano. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="image-modal" class="modal-overlay">
+        <button class="modal-close" id="image-modal-close" aria-label="Close modal"><i class="fas fa-times"></i></button>
+        <div class="image-modal-content">
+            <button class="image-modal-nav prev" id="image-modal-prev"><i class="fas fa-chevron-left"></i></button>
+            <img id="modal-image-view" src="" alt="Gallery Full View">
+            <button class="image-modal-nav next" id="image-modal-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="image-modal-counter" id="image-modal-counter">1 / 5</div>
+            <div class="image-modal-thumbs" id="image-modal-thumbs"></div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-panel" id="chat-panel">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div>
+                        <h4>Chat with Raysel</h4>
+                        <span class="chat-status"><span class="status-dot"></span> Ask me anything</span>
+                    </div>
+                </div>
+                <button class="chat-close-btn" id="chat-close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot-message">
+                    <p>Hi! 👋<br><br>Thanks for visiting my portfolio. You can ask me about my projects, skills, or experience.</p>
+                    <span class="message-time">Just now</span>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Type your message..." class="chat-input">
+                <button class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chat-button" id="chat-toggle-btn" aria-label="Open Chat">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <script type="module" src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</body>
+</html>

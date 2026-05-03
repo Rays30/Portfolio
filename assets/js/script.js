@@ -715,4 +715,70 @@ Keep replies short — 2 to 4 sentences max.`;
     window.addEventListener('scroll', handleScroll);
     handleScroll(); 
 
+// --- 15. Projects Pagination ---
+const projectsList = document.querySelector('.projects-list');
+const paginationContainer = document.querySelector('.pagination');
+
+if (projectsList && paginationContainer) {
+    const allCards = Array.from(projectsList.querySelectorAll('.project-card-horizontal'));
+    const cardsPerPage = 3;
+    let currentPage = 1;
+    const totalPages = Math.ceil(allCards.length / cardsPerPage);
+
+    const prevBtn = paginationContainer.querySelectorAll('.page-btn')[0];
+    const nextBtn = paginationContainer.querySelectorAll('.page-btn')[2];
+
+    // Remove the static page number button and build dynamic ones
+    const staticPageBtn = paginationContainer.querySelectorAll('.page-btn')[1];
+    staticPageBtn.remove();
+
+    // Build a numbered button for each page
+    for (let i = totalPages; i >= 1; i--) {
+        const btn = document.createElement('button');
+        btn.classList.add('page-btn');
+        btn.textContent = i;
+        btn.dataset.page = i;
+        prevBtn.insertAdjacentElement('afterend', btn);
+    }
+
+    function getPageBtns() {
+        return Array.from(paginationContainer.querySelectorAll('.page-btn[data-page]'));
+    }
+
+    function showPage(page) {
+        allCards.forEach((card, index) => {
+            const start = (page - 1) * cardsPerPage;
+            const end = start + cardsPerPage;
+            card.style.display = (index >= start && index < end) ? '' : 'none';
+        });
+
+        currentPage = page;
+
+        getPageBtns().forEach(btn => {
+            btn.classList.toggle('active', parseInt(btn.dataset.page) === currentPage);
+        });
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+        prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
+        nextBtn.style.opacity = currentPage === totalPages ? '0.4' : '1';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    getPageBtns().forEach(btn => {
+        btn.addEventListener('click', () => showPage(parseInt(btn.dataset.page)));
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) showPage(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) showPage(currentPage + 1);
+    });
+
+    showPage(1);
+}
+
 }); // end DOMContentLoaded
