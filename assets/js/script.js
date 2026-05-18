@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { firebaseConfig } from "./config.js";
+import { firebaseConfig, groqApiKey } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -283,12 +283,19 @@ Keep replies short — 2 to 4 sentences max.`;
         appendTyping();
 
         try {
-            const res = await fetch("/api/chat", {
+            const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${groqApiKey}`
+                },
                 body: JSON.stringify({
-                    message: userMessage,
-                    systemPrompt: SYSTEM_PROMPT
+                    model: "llama-3.3-70b-versatile",
+                    max_tokens: 200,
+                    messages: [
+                        { role: "system", content: SYSTEM_PROMPT },
+                        { role: "user",   content: userMessage }
+                    ]
                 })
             });
 
@@ -706,7 +713,7 @@ Keep replies short — 2 to 4 sentences max.`;
     }
     
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); 
+    handleScroll();
 
     // --- 15. Projects Pagination ---
     const projectsList = document.querySelector('.projects-list');
