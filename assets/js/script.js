@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { firebaseConfig, groqApiKey } from "./config.js";
+import { firebaseConfig } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // --- 8. Floating Chat Widget Logic + Gemini AI ---
+    // --- 8. Floating Chat Widget Logic + Groq AI ---
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
     const chatCloseBtn  = document.getElementById('chat-close-btn');
     const chatPanel     = document.getElementById('chat-panel');
@@ -280,44 +280,37 @@ Keep replies short — 2 to 4 sentences max.`;
     }
 
     async function sendToGroq(userMessage) {
-    appendTyping();
+        appendTyping();
 
-    try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${groqApiKey}`
-            },
-            body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",
-                max_tokens: 200,
-                messages: [
-                    { role: "system", content: SYSTEM_PROMPT },
-                    { role: "user",   content: userMessage }
-                ]
-            })
-        });
+        try {
+            const res = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: userMessage,
+                    systemPrompt: SYSTEM_PROMPT
+                })
+            });
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (!res.ok) {
-            console.error("Groq API error:", data.error?.message || data);
+            if (!res.ok) {
+                console.error("Groq API error:", data.error?.message || data);
+                document.getElementById('typing-indicator')?.remove();
+                appendMessage("Sorry, I couldn't get a response. Try again!", 'bot');
+                return;
+            }
+
+            const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Try again!";
             document.getElementById('typing-indicator')?.remove();
-            appendMessage("Sorry, I couldn't get a response. Try again!", 'bot');
-            return;
+            appendMessage(reply, 'bot');
+
+        } catch (err) {
+            console.error("Groq fetch error:", err);
+            document.getElementById('typing-indicator')?.remove();
+            appendMessage("Something went wrong. Please try again!", 'bot');
         }
-
-        const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Try again!";
-        document.getElementById('typing-indicator')?.remove();
-        appendMessage(reply, 'bot');
-
-    } catch (err) {
-        console.error("Groq fetch error:", err);
-        document.getElementById('typing-indicator')?.remove();
-        appendMessage("Something went wrong. Please try again!", 'bot');
     }
-}
 
     let isSending = false;
 
@@ -715,7 +708,7 @@ Keep replies short — 2 to 4 sentences max.`;
     window.addEventListener('scroll', handleScroll);
     handleScroll(); 
 
-// --- 15. Projects Pagination ---
+    // --- 15. Projects Pagination ---
     const projectsList = document.querySelector('.projects-list');
     const paginationContainer = document.querySelector('.pagination');
 
@@ -778,14 +771,12 @@ Keep replies short — 2 to 4 sentences max.`;
             if (currentPage < totalPages) showPage(currentPage + 1, true);
         });
 
-        // Save scroll position before leaving to a detail page
         document.querySelectorAll('.project-card-horizontal .btn-outline[href$=".html"]').forEach(link => {
             link.addEventListener('click', () => {
                 sessionStorage.setItem('projectsScrollY', window.scrollY);
             });
         });
 
-        // Restore page and scroll position when coming back
         const savedPage = parseInt(sessionStorage.getItem('projectsPage')) || 1;
         const savedScrollY = parseInt(sessionStorage.getItem('projectsScrollY')) || 0;
 
