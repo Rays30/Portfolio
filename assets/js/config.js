@@ -9,4 +9,9 @@ export const firebaseConfig = {
     measurementId: "G-N9BCHNFNKM"
 };
 
+<<<<<<< HEAD
+=======
+export const geminiApiKey = "AIzaSyBUtIoWb_foIVnPNlWnRh6uxTxnVCKugDw"; // ← add this once you get it
+
+>>>>>>> parent of f8da3f7 (Replace Gemini integration with Groq API)
 export default firebaseConfig;
