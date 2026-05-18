@@ -9,6 +9,6 @@ export const firebaseConfig = {
     measurementId: "G-N9BCHNFNKM"
 };
 
-export const geminiApiKey = "AIzaSyBUtIoWb_foIVnPNlWnRh6uxTxnVCKugDw"; // ← add this once you get it
+export const groqApiKey = "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"; // ← add this once you get it
 
 export default firebaseConfig;

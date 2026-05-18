@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { firebaseConfig, geminiApiKey } from "./config.js";
+import { firebaseConfig, groqApiKey } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -279,45 +279,45 @@ Keep replies short — 2 to 4 sentences max.`;
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    async function sendToGemini(userMessage) {
-        appendTyping();
+    async function sendToGroq(userMessage) {
+    appendTyping();
 
-        try {
-            const res = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        systemInstruction: {
-                            parts: [{ text: SYSTEM_PROMPT }]
-                        },
-                        contents: [
-                            { role: 'user', parts: [{ text: userMessage }] }
-                        ]
-                    })
-                }
-            );
+    try {
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${groqApiKey}`
+            },
+            body: JSON.stringify({
+                model: "llama-3.3-70b-versatile",
+                max_tokens: 200,
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user",   content: userMessage }
+                ]
+            })
+        });
 
-            const data = await res.json();
+        const data = await res.json();
 
-            if (!res.ok) {
-                console.error("Gemini API error:", data.error?.message || data);
-                document.getElementById('typing-indicator')?.remove();
-                appendMessage("Sorry, I couldn't get a response. Try again!", 'bot');
-                return;
-            }
-
-            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get a response. Try again!";
+        if (!res.ok) {
+            console.error("Groq API error:", data.error?.message || data);
             document.getElementById('typing-indicator')?.remove();
-            appendMessage(reply, 'bot');
-
-        } catch (err) {
-            console.error("Gemini fetch error:", err);
-            document.getElementById('typing-indicator')?.remove();
-            appendMessage("Something went wrong. Please try again!", 'bot');
+            appendMessage("Sorry, I couldn't get a response. Try again!", 'bot');
+            return;
         }
+
+        const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Try again!";
+        document.getElementById('typing-indicator')?.remove();
+        appendMessage(reply, 'bot');
+
+    } catch (err) {
+        console.error("Groq fetch error:", err);
+        document.getElementById('typing-indicator')?.remove();
+        appendMessage("Something went wrong. Please try again!", 'bot');
     }
+}
 
     let isSending = false;
 
@@ -333,7 +333,7 @@ Keep replies short — 2 to 4 sentences max.`;
         appendMessage(msg, 'user');
         chatInput.value = '';
 
-        sendToGemini(msg).finally(() => {
+        sendToGroq(msg).finally(() => {
             isSending = false;
             chatSendBtn.disabled = false;
             chatInput.disabled = false;
